@@ -9,10 +9,10 @@
 #   - Clean-up README file from template related info
 #   - Self-destruct
 
-read -p "Port number for new app: " port
-read -p "Replace \`demo\` package name with: " package
-read -p "Repo product: (It's first part of the git repo name. Often a team name) " product_name
-read -p "Repo component: (It's second part of git repo name. Application name) " component_name
+port=4000
+package="rpts"
+product_name="rpts"
+component_name="api"
 
 pushd $(dirname "$0")/.. > /dev/null
 
@@ -85,7 +85,7 @@ done
 perl -i -pe "s/.*\n/# $slug\n/g if 1 .. 1" README.md
 
 # Self-destruct
-rm bin/init.sh
+#rm bin/init.sh
 
 # Return to original directory
 popd > /dev/null
