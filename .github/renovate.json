@@ -1,6 +1,5 @@
 {
   "enabledManagers": ["helm-requirements","gradle-wrapper"],
-
   "labels": ["dependencies"],
   "helm-requirements":
   {
