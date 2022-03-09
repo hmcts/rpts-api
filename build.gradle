@@ -189,6 +189,8 @@ dependencies {
     exclude group: 'junit', module: 'junit'
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
   }
+
+  smokeTestImplementation group: 'io.rest-assured', name: 'rest-assured'
 }
 
 mainClassName = 'uk.gov.hmcts.reform.rpts.Application'
