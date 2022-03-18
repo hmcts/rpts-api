@@ -5,7 +5,7 @@ variable "product" {
 
 variable "component" {
   type    = string
-  default = "rpts-api"
+  default = "api"
 }
 
 variable "location" {
