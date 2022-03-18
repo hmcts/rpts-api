@@ -24,3 +24,17 @@ services:
       - LOGBACK_REQUIRE_ERROR_CODE=false
     ports:
       - $SERVER_PORT:$SERVER_PORT
+  rpts-database:
+    build:
+      context: docker/database
+    environment:
+      POSTGRES_DB: rpts
+      POSTGRES_USER: rpts
+      POSTGRES_PASSWORD: rpts
+    ports:
+      - 5432:5432
+    volumes:
+      - rpts-database:/var/lib/postgresql/data
+
+volumes:
+  rpts-database:
