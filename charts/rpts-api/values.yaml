@@ -7,7 +7,7 @@ java:
     rpts:
       resourceGroup: rpts
       secrets:
-        - name: rpts-api-POSTGRES-PASS
+        - name: api-POSTGRES-PASS
           alias: POSTGRES_PASSWORD
         - name: AppInsightsInstrumentationKey
           alias: azure.application-insights.instrumentation-key
