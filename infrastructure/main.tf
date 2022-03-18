@@ -16,7 +16,6 @@ data "azurerm_key_vault" "rpts_key_vault" {
 module "rpts-database-v11" {
   source = "git@github.com:hmcts/cnp-module-postgres?ref=master"
   product = var.product
-  component = var.component
   name = "${var.product}-${var.component}-postgres-db-v11"
   location = var.location
   env = var.env
