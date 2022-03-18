@@ -8,12 +8,8 @@ java:
       secrets:
         - name: AppInsightsInstrumentationKey
           alias: azure.application-insights.instrumentation-key
-        - name: api-POSTGRES-HOST
-          alias: POSTGRES_HOST
-        - name: api-POSTGRES-PASS
-          alias: POSTGRES_PASSWORD
-        - name: api-POSTGRES-DATABASE
-          alias: POSTGRES_DATABASE
-        - name: api-POSTGRES-USER
-          alias: POSTGRES_USER
   environment:
+    POSTGRES_PORT: 5432
+    POSTGRES_HOST: rpts-postgres-db-v11-{{ .Values.global.environment }}.postgres.database.azure.com
+    POSTGRES_NAME: rpts
+    POSTGRES_USERNAME: rpts@rpts-postgres-db-v11-{{ .Values.global.environment }}
