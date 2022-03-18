@@ -22,9 +22,9 @@ module "rpts-database-v11" {
   env = var.env
   postgresql_user = var.postgresql_user
   database_name = var.database_name
-  sku_name = var.sku_name
-  sku_capacity = var.sku_capacity
+  sku_name = "GP_Gen5_2"
   sku_tier = "GeneralPurpose"
+  storage_mb = "51200"
   common_tags = var.common_tags
   subscription = var.subscription
   postgresql_version = var.postgresql_version
