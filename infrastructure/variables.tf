@@ -1,14 +1,24 @@
-variable "product" {}
+variable "product" {
+  type    = string
+  default = "rpts"
+}
 
-variable "component" {}
+variable "component" {
+  type    = string
+  default = "rpts-api"
+}
 
 variable "location" {
   default = "UK South"
 }
 
-variable "env" {}
+variable "env" {
+  type = string
+}
 
-variable "subscription" {}
+variable "subscription" {
+  type    = string
+}
 
 variable "deployment_namespace" {
   default = ""
