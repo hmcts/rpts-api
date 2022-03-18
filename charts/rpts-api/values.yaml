@@ -3,10 +3,17 @@ java:
   image: 'hmctspublic.azurecr.io/rpts/api:latest'
   ingressHost: rpts-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
   aadIdentityName: rpts
-#  Uncomment once the vault containing the app insights key has been set up
-#  keyVaults:
-#    rpts:
-#      secrets:
-#        - name: AppInsightsInstrumentationKey
-#          alias: azure.application-insights.instrumentation-key
+  keyVaults:
+    rpts:
+      secrets:
+        - name: AppInsightsInstrumentationKey
+          alias: azure.application-insights.instrumentation-key
+        - name: api-POSTGRES-HOST
+          alias: POSTGRES_HOST
+        - name: api-POSTGRES-PASS
+          alias: POSTGRES_PASSWORD
+        - name: api-POSTGRES-DATABASE
+          alias: POSTGRES_DATABASE
+        - name: api-POSTGRES-USER
+          alias: POSTGRES_USER
   environment:
