@@ -60,6 +60,13 @@ resource "azurerm_key_vault_secret" "POSTGRES_DATABASE" {
   key_vault_id = data.azurerm_key_vault.rpts_key_vault.id
 }
 
+resource "azurerm_resource_group" "rg" {
+  name     = "${var.product}-${var.component}-${var.env}"
+  location = var.location
+
+  tags = var.common_tags
+}
+
 resource "azurerm_application_insights" "appinsights" {
   name                = "${var.product}-${var.component}-appinsights-${var.env}"
   location            = var.appinsights_location
