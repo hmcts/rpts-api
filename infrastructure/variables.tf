@@ -47,3 +47,8 @@ variable "database_name" {
   type    = string
   default = "rpts"
 }
+
+variable "appinsights_location" {
+  default     = "West Europe"
+  description = "Location for Application Insights"
+}
