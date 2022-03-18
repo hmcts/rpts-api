@@ -36,3 +36,8 @@ variable "product_name" {
   type    = string
   default = "rpts"
 }
+
+variable "database_name" {
+  type    = string
+  default = "rpts"
+}
