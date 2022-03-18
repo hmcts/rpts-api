@@ -30,33 +30,32 @@ module "rpts-database-v11" {
 }
 
 # Populate Vault with DB info
-
 resource "azurerm_key_vault_secret" "POSTGRES-USER" {
-  name      = join("-", [var.component, "POSTGRES-USER"])
+  name      = "api-POSTGRES-USER"
   value     = module.rpts-database-v11.user_name
   key_vault_id = data.azurerm_key_vault.rpts_key_vault.id
 }
 
 resource "azurerm_key_vault_secret" "POSTGRES-PASS" {
-  name      = join("-", [var.component, "POSTGRES-PASS"])
+  name      = "api-POSTGRES-PASS"
   value     = module.rpts-database-v11.postgresql_password
   key_vault_id = data.azurerm_key_vault.rpts_key_vault.id
 }
 
 resource "azurerm_key_vault_secret" "POSTGRES_HOST" {
-  name      = join("-", [var.component, "POSTGRES-HOST"])
+  name      = "api-POSTGRES-HOST"
   value     = module.rpts-database-v11.host_name
   key_vault_id = data.azurerm_key_vault.rpts_key_vault.id
 }
 
 resource "azurerm_key_vault_secret" "POSTGRES_PORT" {
-  name      = join("-", [var.component, "POSTGRES-PORT"])
+  name      = "api-POSTGRES-PORT"
   value     = module.rpts-database-v11.postgresql_listen_port
   key_vault_id = data.azurerm_key_vault.rpts_key_vault.id
 }
 
 resource "azurerm_key_vault_secret" "POSTGRES_DATABASE" {
-  name      = join("-", [var.component, "POSTGRES-DATABASE"])
+  name      = "api-POSTGRES-DATABASE"
   value     = module.rpts-database-v11.postgresql_database
   key_vault_id = data.azurerm_key_vault.rpts_key_vault.id
 }

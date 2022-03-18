@@ -12,12 +12,12 @@ variable "location" {
   default = "UK South"
 }
 
-variable "env" {}
+variable "env" {
+  type = string
+}
 
-variable "subscription" {}
-
-variable "deployment_namespace" {
-  default = ""
+variable "subscription" {
+  type    = string
 }
 
 variable "common_tags" {
