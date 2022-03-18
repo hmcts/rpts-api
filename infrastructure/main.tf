@@ -8,11 +8,6 @@ locals {
 }
 
 data "azurerm_key_vault" "rpts_key_vault" {
-  name = "${local.vaultName}"
-  resource_group_name = join("-", [var.core_product, var.env])
-}
-
-data "azurerm_key_vault" "rpts_key_vault" {
   name = local.vault_name
   resource_group_name = local.resource_group_name
 }
