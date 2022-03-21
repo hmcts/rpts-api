@@ -5,6 +5,11 @@ management:
   endpoint:
     health:
       show-details: "always"
+  health:
+    diskspace:
+      enabled: true
+    db:
+      enabled: true
   endpoints:
     web:
       base-path: /
