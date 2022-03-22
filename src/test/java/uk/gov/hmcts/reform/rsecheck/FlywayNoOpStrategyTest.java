@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.rpts.config;
+package uk.gov.hmcts.reform.rsecheck;
 
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.MigrationInfo;
@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
+import uk.gov.hmcts.reform.rpts.config.FlywayNoOpStrategy;
 import uk.gov.hmcts.reform.rpts.exceptions.PendingMigrationScriptException;
 
 import static org.assertj.core.api.Assertions.assertThat;
