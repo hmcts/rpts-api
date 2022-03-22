@@ -17,13 +17,13 @@ class FlywayConfigurationTest {
 
     @Test
     void shouldAddFlywayConfigurationBeanToApplicationContext() {
-        assertThat(applicationContext.containsBean("flywayConfiguration"));
+        assertThat(applicationContext.containsBean("flywayConfiguration")).isTrue();
     }
 
     @Test
     void shouldReturnFlywayNoOpStrategy() {
         final FlywayConfiguration flywayConfiguration = (FlywayConfiguration) (applicationContext.getBean(
             "flywayConfiguration"));
-        assertThat(flywayConfiguration.flywayMigrationStrategy() instanceof FlywayNoOpStrategy);
+        assertThat(flywayConfiguration.flywayMigrationStrategy() instanceof FlywayNoOpStrategy).isTrue();
     }
 }
