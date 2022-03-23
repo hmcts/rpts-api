@@ -2,11 +2,11 @@
 java:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
-  keyVaults:
-    "rpts":
-      resourceGroup: rpts
-      secrets:
-        - name: api-POSTGRES-PASS
-          alias: POSTGRES_PASSWORD
-        - name: app-insights-connection-string
-          alias: app-insights-connection-string
+#  keyVaults:
+#    "rpts":
+#      resourceGroup: rpts
+#      secrets:
+#        - name: api-POSTGRES-PASS
+#          alias: POSTGRES_PASSWORD
+#        - name: app-insights-connection-string
+#          alias: app-insights-connection-string
