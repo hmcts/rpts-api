@@ -23,7 +23,7 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE:rpts}${DB_OPTIONS:}
-    username: ${POSTGRES_USER:test2}
+    username: ${POSTGRES_USER:rpts}
     password: ${POSTGRES_PASSWORD:rpts}
     properties:
       charSet: UTF-8
@@ -36,8 +36,8 @@ spring:
       connectionTimeout: 30000
   flyway:
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE:rpts}${DB_OPTIONS:}
-    password: ${POSTGRES_PASSWORD:rpts}
-    user: ${POSTGRES_USER:test1}
+    password: ${POSTGRES_PASSWORD}
+    user: ${POSTGRES_USER}
     baseline-on-migrate: true
   jpa:
     properties:
