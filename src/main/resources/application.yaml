@@ -38,14 +38,13 @@ spring:
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE:rpts}${DB_OPTIONS:}
     password: ${POSTGRES_PASSWORD:rpts}
     user: ${POSTGRES_USER:rpts}
-#    locations: classpath:/db/migration,classpath:/main/resources/db/migration
+    baseline-on-migrate: true
   jpa:
     properties:
       hibernate:
         globally_quoted_identifiers: true
         jdbc:
           lob:
-            # silence the 'wall-of-text' - unnecessary exception throw about blob types
             non_contextual_creation: true
 
 hibernate:
