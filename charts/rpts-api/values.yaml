@@ -4,7 +4,7 @@ java:
   ingressHost: rpts-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
   aadIdentityName: rpts
   keyVaults:
-    rpts:
+    "rpts":
       resourceGroup: rpts
       secrets:
         - name: api-POSTGRES-PASS
@@ -15,4 +15,4 @@ java:
     POSTGRES_PORT: 5432
     POSTGRES_HOST: rpts-api-postgres-db-v11-{{ .Values.global.environment }}.postgres.database.azure.com
     POSTGRES_DATABASE: rpts
-    POSTGRES_USERNAME: rpts@rpts-api-postgres-db-v11-{{ .Values.global.environment }}
+    POSTGRES_USERNAME: rpdts@rpts-api-postgres-db-v11-{{ .Values.global.environment }}
