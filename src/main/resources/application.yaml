@@ -5,11 +5,6 @@ management:
   endpoint:
     health:
       show-details: "always"
-  health:
-    diskspace:
-      enabled: true
-    db:
-      enabled: true
   endpoints:
     web:
       base-path: /
@@ -27,9 +22,9 @@ spring:
     name: Spring Boot Template
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}${DB_OPTIONS:}
-    username: ${DB_USER_NAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE:rpts}${DB_OPTIONS:}
+    username: ${POSTGRES_USERNAME:rpts}
+    password: ${POSTGRES_PASSWORD:rpts}
     properties:
       charSet: UTF-8
     hikari:
@@ -39,10 +34,23 @@ spring:
       poolName: RPTSHikariCP
       maxLifetime: 7200000
       connectionTimeout: 30000
+  flyway:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE:rpts}${DB_OPTIONS:}
+    password: ${POSTGRES_PASSWORD:rpts}
+    user: ${POSTGRES_USERNAME:rpts}
+    baseline-on-migrate: true
   jpa:
     properties:
       hibernate:
+        globally_quoted_identifiers: true
         jdbc:
           lob:
-            # silence the 'wall-of-text' - unnecessary exception throw about blob types
             non_contextual_creation: true
+
+hibernate:
+  show_sql=true:
+
+dbMigration:
+  runOnStartup: ${RUN_DB_MIGRATION_ON_STARTUP:true}
+
+
