@@ -9,3 +9,4 @@ java:
     POSTGRES_PASSWORD: "{{ .Values.postgresql.postgresqlPassword}}"
   postgresql:
     enabled: true
+    initdbUser: postgres
