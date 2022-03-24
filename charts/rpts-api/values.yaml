@@ -4,8 +4,7 @@ java:
   ingressHost: rpts-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
   aadIdentityName: rpts
   keyVaults:
-    "rpts":
-      resourceGroup: rpts
+    rpts:
       secrets:
         - name: api-POSTGRES-PASS
           alias: POSTGRES_PASSWORD
