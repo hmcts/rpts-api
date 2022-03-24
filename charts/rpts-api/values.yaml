@@ -9,10 +9,13 @@ java:
       secrets:
         - name: api-POSTGRES-PASS
           alias: POSTGRES_PASSWORD
+        - name: api-POSTGRES-USER
+          alias: POSTGRES_USERNAME
+        - name: api-POSTGRES-HOST
+          alias: POSTGRES_HOST
+        - name: api-POSTGRES-DATABASE
+          alias: POSTGRES_DATABASE
+        - name: api-POSTGRES-PORT
+          alias: POSTGRES_PORT
         - name: app-insights-connection-string
           alias: app-insights-connection-string
-  environment:
-    POSTGRES_PORT: 5432
-    POSTGRES_HOST: rpts-api-postgres-db-v11-{{ .Values.global.environment }}.postgres.database.azure.com
-    POSTGRES_DATABASE: rpts
-    POSTGRES_USERNAME: rptsXX@rpts-api-postgres-db-v11-{{ .Values.global.environment }}
