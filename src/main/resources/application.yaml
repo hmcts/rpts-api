@@ -24,7 +24,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE:rpts}${DB_OPTIONS:}
     username: ${POSTGRES_USERNAME:rpts}
-    password: ${POSTGRES_PASSWORD:rpts}
+    password: ${POSTGRES_PASSWORD}
     properties:
       charSet: UTF-8
     hikari:
