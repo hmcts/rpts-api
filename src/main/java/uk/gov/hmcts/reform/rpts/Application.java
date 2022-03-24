@@ -8,6 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Application {
 
     public static void main(final String[] args) {
+        System.out.println(System.getenv("POSTGRES_HOST"));
+        System.out.println(System.getenv("POSTGRES_USERNAME"));
+        System.out.println(System.getenv("POSTGRES_DATABASE"));
+        System.out.println(System.getenv("POSTGRES_PORT"));
+
         SpringApplication.run(Application.class, args);
     }
 }
