@@ -34,11 +34,11 @@ spring:
       poolName: RPTSHikariCP
       maxLifetime: 7200000
       connectionTimeout: 30000
-#  flyway:
-#    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE:rpts}${DB_OPTIONS:}
-#    password: ${POSTGRES_PASSWORD:rpts}
-#    user: ${POSTGRES_USERNAME:rpts}
-#    baseline-on-migrate: true
+  flyway:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE:rpts}${DB_OPTIONS:}
+    password: ${POSTGRES_PASSWORD:rpts}
+    user: ${POSTGRES_USERNAME:rpts}
+    baseline-on-migrate: true
   jpa:
     properties:
       hibernate:

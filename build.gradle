@@ -177,7 +177,7 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-json'
   implementation group: 'org.postgresql', name: 'postgresql'
   implementation group: 'org.flywaydb', name: 'flyway-core'
-//  implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+  implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
 
   implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.6'
 
