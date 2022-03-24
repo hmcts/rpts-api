@@ -1,10 +1,12 @@
-package uk.gov.hmcts.reform.rpts.config;
+package uk.gov.hmcts.reform.rsecheck;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import uk.gov.hmcts.reform.rpts.config.FlywayConfiguration;
+import uk.gov.hmcts.reform.rpts.config.FlywayNoOpStrategy;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
