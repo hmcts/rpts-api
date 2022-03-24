@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    propertiesvolume:
+      prefixed: false
+      paths: /mnt/secrets/rpts
+      aliases:
+        api-POSTGRES-PASS: POSTGRES_PASSWORD
+        api-POSTGRES-USER: POSTGRES_USERNAME
+        api-POSTGRES-HOST: POSTGRES_HOST
+        api-POSTGRES-DATABASE: POSTGRES_DATABASE
+        api-POSTGRES-PORT: POSTGRES_PORT
+        app-insights-connection-string: app-insights-connection-string

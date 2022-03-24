@@ -6,15 +6,9 @@ java:
   keyVaults:
     rpts:
       secrets:
-        - name: api-POSTGRES-PASS
-          alias: POSTGRES_PASSWORD
-        - name: api-POSTGRES-USER
-          alias: POSTGRES_USERNAME
-        - name: api-POSTGRES-HOST
-          alias: POSTGRES_HOST
-        - name: api-POSTGRES-DATABASE
-          alias: POSTGRES_DATABASE
-        - name: api-POSTGRES-PORT
-          alias: POSTGRES_PORT
-        - name: app-insights-connection-string
-          alias: app-insights-connection-string
+        - api-POSTGRES-PASS
+        - api-POSTGRES-USER
+        - api-POSTGRES-HOST
+        - api-POSTGRES-DATABASE
+        - api-POSTGRES-PORT
+        - app-insights-connection-string
