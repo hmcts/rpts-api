@@ -1,4 +1,4 @@
-FROM postgres:11.9-alpine
+FROM postgres:14.2-alpine
 
 HEALTHCHECK --interval=10s --timeout=10s --retries=10 CMD psql -c 'select 1' -d rpts -U rpts
 
