@@ -4,10 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@SuppressWarnings({"HideUtilityClassConstructor", "SystemPrintln"})
+@SuppressWarnings({"HideUtilityClassConstructor", "PMD"})
 public class Application {
 
     public static void main(final String[] args) {
+
         System.out.println(System.getenv("POSTGRES_HOST"));
         System.out.println(System.getenv("POSTGRES_USERNAME"));
         System.out.println(System.getenv("POSTGRES_DATABASE"));
