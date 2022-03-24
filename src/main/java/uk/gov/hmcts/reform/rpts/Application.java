@@ -11,8 +11,6 @@ public class Application {
 
         System.out.println(System.getenv("POSTGRES_HOST"));
         System.out.println(System.getenv("POSTGRES_USERNAME"));
-        System.out.println(System.getenv("POSTGRES_DATABASE"));
-        System.out.println(System.getenv("POSTGRES_PORT"));
 
         SpringApplication.run(Application.class, args);
     }
