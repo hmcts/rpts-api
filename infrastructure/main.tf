@@ -14,7 +14,7 @@ data "azurerm_key_vault" "rpts_key_vault" {
 
 // Database Infra
 module "rpts-database-v11" {
-  source = "git@github.com:hmcts/cnp-module-postgres?ref=master"
+  source = "git@github.com:hmcts/cnp-module-postgres?ref=postgresql_tf"
   product = var.product
   name = "${var.product}-${var.component}-postgres-db-v11"
   location = var.location

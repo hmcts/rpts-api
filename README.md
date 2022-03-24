@@ -21,6 +21,23 @@ To build the project execute the following command:
   ./gradlew build
 ```
 
+### Database set up
+
+#### Locally
+
+1) Make sure the application is started and that the nspl and nspl_history tables are present
+2) Navigate to the setup folder and run
+
+`bash insert_data.sh`
+
+#### AAT and upwards
+
+Get access to non prod and/or prod bastions
+
+Download the CSV files
+
+Run the copy command listed in the `setup/insert_data.sh` file
+
 ### Running the application
 
 Create the image of the application by executing the following command:
