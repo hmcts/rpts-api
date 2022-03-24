@@ -6,4 +6,6 @@ def type = "java"
 def product = "rpts"
 def component = "api"
 
-withPipeline(type, product, component) {}
+withPipeline(type, product, component) {
+  enableDbMigration(product)
+}

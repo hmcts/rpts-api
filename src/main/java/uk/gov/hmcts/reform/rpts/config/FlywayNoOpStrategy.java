@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 public class FlywayNoOpStrategy implements FlywayMigrationStrategy {
 
     @Override
-    @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
     public void migrate(Flyway flyway) {
         Stream.of(flyway.info().all())
             .filter(info -> !info.getState().isApplied())

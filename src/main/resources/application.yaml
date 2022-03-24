@@ -34,11 +34,6 @@ spring:
       poolName: RPTSHikariCP
       maxLifetime: 7200000
       connectionTimeout: 30000
-  flyway:
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE:rpts}${DB_OPTIONS:}
-    password: ${POSTGRES_PASSWORD:rpts}
-    user: ${POSTGRES_USERNAME:rpts}
-    baseline-on-migrate: true
   jpa:
     properties:
       hibernate:
@@ -51,6 +46,6 @@ hibernate:
   show_sql=true:
 
 dbMigration:
+  # When true, the app will run DB migration on startup.
+  # Otherwise, it will just check if all migrations have been applied (and fail to start if not).
   runOnStartup: ${RUN_DB_MIGRATION_ON_STARTUP:true}
-
-
