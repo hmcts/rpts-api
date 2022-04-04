@@ -46,32 +46,32 @@ module "rpts-database-v11" {
 
 resource "azurerm_key_vault_secret" "POSTGRES-USER" {
   name         = "api-POSTGRES-USER"
-  value        = module.fact-database.user_name
-  key_vault_id = data.azurerm_key_vault.fact_key_vault.id
+  value        = module.rpts-database.user_name
+  key_vault_id = data.azurerm_key_vault.rpts_key_vault.id
 }
 
 resource "azurerm_key_vault_secret" "POSTGRES-PASS" {
   name         = "api-POSTGRES-PASS"
-  value        = module.fact-database.postgresql_password
-  key_vault_id = data.azurerm_key_vault.fact_key_vault.id
+  value        = module.rpts-database.postgresql_password
+  key_vault_id = data.azurerm_key_vault.rpts_key_vault.id
 }
 
 resource "azurerm_key_vault_secret" "POSTGRES_HOST" {
   name         = "api-POSTGRES-HOST"
-  value        = module.fact-database.host_name
-  key_vault_id = data.azurerm_key_vault.fact_key_vault.id
+  value        = module.rpts-database.host_name
+  key_vault_id = data.azurerm_key_vault.rpts_key_vault.id
 }
 
 resource "azurerm_key_vault_secret" "POSTGRES_PORT" {
   name         = "api-POSTGRES-PORT"
-  value        = module.fact-database.postgresql_listen_port
-  key_vault_id = data.azurerm_key_vault.fact_key_vault.id
+  value        = module.rpts-database.postgresql_listen_port
+  key_vault_id = data.azurerm_key_vault.rpts_key_vault.id
 }
 
 resource "azurerm_key_vault_secret" "POSTGRES_DATABASE" {
   name         = "api-POSTGRES-DATABASE"
-  value        = module.fact-database.postgresql_database
-  key_vault_id = data.azurerm_key_vault.fact_key_vault.id
+  value        = module.rpts-database.postgresql_database
+  key_vault_id = data.azurerm_key_vault.rpts_key_vault.id
 }
 
 resource "azurerm_resource_group" "rg" {
