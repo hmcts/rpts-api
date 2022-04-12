@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.hmcts.reform.rpts.os.OsResult;
 import uk.gov.hmcts.reform.rpts.services.OsService;
-import javax.websocket.server.PathParam;
+
 import java.util.Optional;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -35,6 +35,6 @@ public class AddressController {
 
         log.info("postcode in search is: " + postcode);
 
-        return ok(osService.getMapitData(postcode));
+        return ok(osService.getOsAddressData(postcode));
     }
 }

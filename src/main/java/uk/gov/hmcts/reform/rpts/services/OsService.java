@@ -20,17 +20,11 @@ public class OsService {
         this.osClient = osClient;
     }
 
-    public Optional<OsResult> getMapitData(final String postcode) {
+    public Optional<OsResult> getOsAddressData(final String postcode) {
 
         if (!postcode.isBlank()) {
             try {
-                final OsResult osResult = osClient.getPostcodeData(postcode);
-
-                log.info(osResult.toString());
-
-//                if (mapitData.hasLatAndLonValues()) {
-                    return Optional.of(osResult);
-//                }
+                return Optional.of(osClient.getPostcodeData(postcode));
             } catch (final FeignException ex) {
                 log.warn("HTTP Status: {} Message: {}", ex.status(), ex.getMessage(), ex);
             }
