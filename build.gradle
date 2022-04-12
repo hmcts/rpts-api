@@ -179,6 +179,10 @@ dependencies {
   implementation group: 'org.postgresql', name: 'postgresql'
   implementation group: 'org.flywaydb', name: 'flyway-core'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+  implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.1'
+
+  implementation group: 'org.projectlombok', name: 'lombok'
+  annotationProcessor 'org.projectlombok:lombok'
 
   implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.6'
   implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.2.1'
