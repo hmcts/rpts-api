@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import uk.gov.hmcts.reform.rpts.models.NsplAddress;
 import uk.gov.hmcts.reform.rpts.os.OsResult;
+import uk.gov.hmcts.reform.rpts.services.NsplService;
 import uk.gov.hmcts.reform.rpts.services.OsService;
 
 import java.util.Optional;
@@ -24,10 +26,12 @@ import static org.springframework.http.ResponseEntity.ok;
 public class AddressController {
 
     private final OsService osService;
+    private final NsplService nsplService;
 
     @Autowired
-    public AddressController(OsService osService) {
+    public AddressController(OsService osService, NsplService nsplService) {
         this.osService = osService;
+        this.nsplService = nsplService;
     }
 
     @GetMapping("/{postcode}")
@@ -36,5 +40,12 @@ public class AddressController {
         log.info("postcode in search is: " + postcode);
 
         return ok(osService.getOsAddressData(postcode));
+    }
+
+    @GetMapping("test/{postcode}")
+    public ResponseEntity<NsplAddress> getAddressTest(@PathVariable("postcode") String postcode) {
+
+        log.info("postcode in search is: " + postcode);
+        return ok(nsplService.getAddressInfo(postcode));
     }
 }

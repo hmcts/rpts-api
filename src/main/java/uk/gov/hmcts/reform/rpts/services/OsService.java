@@ -27,6 +27,7 @@ public class OsService {
                 return Optional.of(osClient.getPostcodeData(postcode));
             } catch (final FeignException ex) {
                 log.warn("HTTP Status: {} Message: {}", ex.status(), ex.getMessage(), ex);
+                throw ex;
             }
         }
 
