@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(AddressController.class)
 @ContextConfiguration(classes = AddressController.class)
+@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 class AddressControllerTest {
 
     private static final String BASE_URL = "/v1/search/address/";

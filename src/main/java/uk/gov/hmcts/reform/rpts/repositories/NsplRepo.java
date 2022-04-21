@@ -13,8 +13,10 @@ public interface NsplRepo extends JpaRepository<Nspl, Integer> {
             + "ced, laua, ward, hlthau, nhser, ctry, rgn, pcon, eer, teclec, "
             + "ttwa, pct, itl, park, lsoa11, msoa11, wz11, ccg, bua11, buasd11, "
             + "ru11ind, oac11, lat, long, lep1, lep2, pfa, imd, calncv, stp "
-            + "FROM PUBLIC.nspl WHERE UPPER(REPLACE(pcd, ' ', '')) = UPPER(:postcode)" )
+            + "FROM PUBLIC.nspl WHERE UPPER(REPLACE(pcd, ' ', '')) = UPPER(:postcode)")
     Optional<Nspl> findAllByPostcodeTrimmed(String postcode);
+
     Optional<Nspl> findAllByPcdIgnoreCase(String postcode);
+
     Optional<Nspl> findAllByPcd2IgnoreCase(String postcode);
 }
