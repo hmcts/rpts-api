@@ -3,35 +3,60 @@ package uk.gov.hmcts.reform.rpts.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "nspl_history")
 @Getter
 @Setter
+@SuppressWarnings("PMD.TooManyFields")
 public class NsplHistory {
 
     @Id
     private Integer id;
-    private String GEOGCD;
-    private String GEOGNM;
-    private String GEOGNMW;
-    private String GEOGCDO;
-    private String GEOGNMO;
-    private String GEOGCDD;
-    private String GEOGNMD;
-    private String GEOGCDH;
-    private String GEOGNMH;
-    private String GEOGCDS;
-    private String GEOGNMS;
-    private String GEOGCDI;
-    private String GEOGNMI;
-    private String GEOGCDWG;
-    private String GEOGNMWG;
-    private String GEOGNMWWG;
-    private String OPER_DATE;
-    private String TERM_DATE;
-    private String ENTITYCD;
-    private String YEAR;
-    private String STATUS;
+    @Column(name = "GEOGCD")
+    private String geogcd;
+    @Column(name = "GEOGNM")
+    private String geognm;
+    @Column(name = "GEOGNMW")
+    private String geognmw;
+    @Column(name = "GEOGCDO")
+    private String geogcdo;
+    @Column(name = "GEOGNMO")
+    private String geognmo;
+    @Column(name = "GEOGCDD")
+    private String geogcdd;
+    @Column(name = "GEOGNMD")
+    private String geognmd;
+    @Column(name = "GEOGCDH")
+    private String geogcdh;
+    @Column(name = "GEOGNMH")
+    private String geognmh;
+    @Column(name = "GEOGCDS")
+    private String geogcds;
+    @Column(name = "GEOGNMS")
+    private String geognms;
+    @Column(name = "GEOGCDI")
+    private String geogcdi;
+    @Column(name = "GEOGNMI")
+    private String geognmi;
+    @Column(name = "GEOGCDWG")
+    private String geogcdwg;
+    @Column(name = "GEOGNMWG")
+    private String geognmwg;
+    @Column(name = "GEOGNMWWG")
+    private String geognmwwg;
+    @Column(name = "OPER_DATE")
+    private String operDate;
+    @Column(name = "TERM_DATE")
+    private String termDate;
+    @Column(name = "ENTITYCD")
+    private String entityCd;
+    @Column(name = "YEAR")
+    private String year;
+    @Column(name = "STATUS")
+    private String status;
 }

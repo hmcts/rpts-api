@@ -32,9 +32,11 @@ public class NsplService {
         Nspl nspl = Optional.of(nsplRepo.findAllByPcdIgnoreCase(postcode.replace(" ", ""))
                                     .orElseThrow(() -> new NotFoundException(
                                         "Postcode not found on NSPL database: " + postcode))).get();
+        log.debug("Returned from OS: laua: {}, postcode: {}", nspl.getLaua(), nspl.getPcd());
         return new NsplAddress(nspl.getPcd(), nspl.getLaua(),
-                               nsplHistoryRepo.findAllByGEOGCDIgnoreCaseAndSTATUS(nspl.getLaua(), "live").getGEOGCDO(),
+                               nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(nspl.getLaua(), "live").getGeogcdo(),
                                osService.getOsAddressData(postcode)
-                                   .orElseThrow(() -> new NotFoundException("Postcode not found on OS: " + postcode)));
+                                   .orElseThrow(() -> new NotFoundException("Postcode not found on OS: "
+                                                                                + postcode)).getResults());
     }
 }

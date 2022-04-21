@@ -3,14 +3,17 @@ package uk.gov.hmcts.reform.rpts.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "nspl")
 @Getter
 @Setter
-public class Nspl implements Serializable {
+@SuppressWarnings({"PMD.ShortClassName", "PMD.TooManyFields"})
+public class Nspl {
 
     @Id
     private int id;

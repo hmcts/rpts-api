@@ -20,7 +20,8 @@ public class GlobalControllerExceptionHandler {
         error.put("message", ex.getMessage());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json");
-        return new ResponseEntity<>(new ObjectMapper().writeValueAsString(error), responseHeaders, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new ObjectMapper().writeValueAsString(error),
+                                    responseHeaders, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
