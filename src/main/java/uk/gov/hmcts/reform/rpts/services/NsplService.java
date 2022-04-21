@@ -9,8 +9,6 @@ import uk.gov.hmcts.reform.rpts.models.NsplAddress;
 import uk.gov.hmcts.reform.rpts.repositories.NsplHistoryRepo;
 import uk.gov.hmcts.reform.rpts.repositories.NsplRepo;
 
-import java.util.Optional;
-
 @Service
 @Slf4j
 public class NsplService {
@@ -29,12 +27,16 @@ public class NsplService {
     }
 
     public NsplAddress getAddressInfo(String postcode) {
-        Nspl nspl = Optional.of(nsplRepo.findAllByPcdIgnoreCase(postcode.replace(" ", ""))
-                                    .orElseThrow(() -> new NotFoundException(
-                                        "Postcode not found on NSPL database: " + postcode))).get();
-        log.debug("Returned from OS: laua: {}, postcode: {}", nspl.getLaua(), nspl.getPcd());
-        return new NsplAddress(nspl.getPcd(), nspl.getLaua(),
+        log.info("Performing query for address search with postcode: {}", postcode);
+        Nspl nspl = nsplRepo.findAllByPcdIgnoreCase(postcode)                // search by pcd
+            .orElseGet(() -> nsplRepo.findAllByPcd2IgnoreCase(postcode)      // search by pcd2
+                .orElseGet(() -> nsplRepo.findAllByPostcodeTrimmed(postcode) // If no row, remove spaces from pcd
+                    .orElseThrow(() -> new NotFoundException("Postcode not found on NSPL DB: " + postcode))));
+
+        log.debug("Returned from NSPL DB: laua: {}, postcode: {}", nspl.getLaua(), nspl.getPcd());
+        return new NsplAddress(nspl.getPcd(),
                                nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(nspl.getLaua(), "live").getGeogcdo(),
+                               nspl.getLaua(),
                                osService.getOsAddressData(postcode)
                                    .orElseThrow(() -> new NotFoundException("Postcode not found on OS: "
                                                                                 + postcode)).getResults());
