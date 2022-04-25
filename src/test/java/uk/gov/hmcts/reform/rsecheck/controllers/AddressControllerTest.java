@@ -1,13 +1,16 @@
 package uk.gov.hmcts.reform.rsecheck.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import uk.gov.hmcts.reform.rpts.controllers.AddressController;
+import uk.gov.hmcts.reform.rpts.exceptions.GlobalControllerExceptionHandler;
 import uk.gov.hmcts.reform.rpts.models.NsplAddress;
 import uk.gov.hmcts.reform.rpts.services.NsplService;
 
@@ -32,6 +35,13 @@ class AddressControllerTest {
 
     @Autowired
     private transient MockMvc mockMvc;
+
+    @Before("shouldFindCourtByQuery")
+    public void before() {
+        this.mockMvc = MockMvcBuilders.standaloneSetup()
+            .setControllerAdvice(new GlobalControllerExceptionHandler())
+            .build();
+    }
 
     @Test
     void shouldFindCourtByQuery() throws Exception {
