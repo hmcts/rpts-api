@@ -11,6 +11,7 @@ class NsplTest {
     @Test
     void nsplEntityAllArgsTest() {
         Nspl nspl = new Nspl();
+        nspl.setId(1);
         nspl.setPcd("pcd");
         nspl.setPcd2("pcd2");
         nspl.setPcds("pcds");
@@ -53,6 +54,7 @@ class NsplTest {
         nspl.setOsgrdind(2);
         nspl.setImd(3);
 
+        assertEquals(1, nspl.getId(), "id does not match");
         assertEquals("pcd", nspl.getPcd(), "pcd does not match");
         assertEquals("pcd2", nspl.getPcd2(), "pcd2 does not match");
         assertEquals("pcds", nspl.getPcds(), "pcds does not match");

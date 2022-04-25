@@ -7,8 +7,4 @@ public class NotFoundException extends RuntimeException {
     public NotFoundException(String searchCriteria) {
         super("Not found: " + searchCriteria);
     }
-
-    public NotFoundException(Exception exception) {
-        super(exception);
-    }
 }
