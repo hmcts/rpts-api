@@ -18,13 +18,13 @@ public class NsplHistory {
     @Id
     private Integer id;
     @Column(name = "GEOGCD")
-    private String geogcd;
+    private String geogcd; // Nine-character UK Government Statistical Service code
     @Column(name = "GEOGNM")
-    private String geognm;
+    private String geognm; // Geography area name
     @Column(name = "GEOGNMW")
     private String geognmw;
     @Column(name = "GEOGCDO")
-    private String geogcdo;
+    private String geogcdo; // The old ONS Geography code
     @Column(name = "GEOGNMO")
     private String geognmo;
     @Column(name = "GEOGCDD")
