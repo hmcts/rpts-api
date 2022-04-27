@@ -17,16 +17,16 @@ public class Nspl {
 
     @Id
     private int id;
-    private String pcd;
-    private String pcd2;
-    private String pcds;
+    private String pcd; // 7-character version of the postcode (e.g. 'BT1 1AA', 'BT486PL')
+    private String pcd2; // 8-character version of the postcode (e.g. 'BT1  1AA', 'BT48 6PL')
+    private String pcds; // one space between the district and sector-unit part of the postcode (e.g. 'BT1 1AA', 'BT48 6PL') - possibly the most common formatting of postcodes.
     private String doterm;
     private String oseast1m;
     private String osnrth1m;
-    private String oa11;
+    private String oa11; // 2011 Census output area
     private String cty;
     private String ced;
-    private String laua;
+    private String laua; // Local Authority District
     private String ward;
     private String hlthau;
     private String nhser;
@@ -45,7 +45,7 @@ public class Nspl {
     private String ccg;
     private String bua11;
     private String buasd11;
-    private String ru11ind;
+    private String ru11ind; // 2011 Census rural-urban classification
     private String oac11;
     private Double lat;
     @Column(name = "long")

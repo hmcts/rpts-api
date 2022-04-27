@@ -69,7 +69,8 @@ class NsplServiceTest {
     @Test
     void shouldReturnResultsWithPcdIgnoreCaseSearch() {
         when(nsplRepo.findAllByPcdIgnoreCase(POSTCODE)).thenReturn(Optional.of(NSPL));
-        when(nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE)).thenReturn(NSPL_HISTORY);
+        when(nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE))
+            .thenReturn(Optional.of(NSPL_HISTORY));
         when(osService.getOsAddressData(POSTCODE)).thenReturn(osResult);
 
         NsplAddress nsplAddress = nsplService.getAddressInfo(POSTCODE);
@@ -81,6 +82,7 @@ class NsplServiceTest {
 
         verify(nsplRepo, atLeastOnce()).findAllByPcdIgnoreCase(POSTCODE);
         verify(nsplRepo, never()).findAllByPcd2IgnoreCase(POSTCODE);
+        verify(nsplRepo, never()).findAllByPcdsIgnoreCase(POSTCODE);
         verify(nsplRepo, never()).findAllByPostcodeTrimmed(POSTCODE);
         verify(nsplHistoryRepo, atLeastOnce()).findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE);
         verify(osService, atLeastOnce()).getOsAddressData(POSTCODE);
@@ -89,7 +91,8 @@ class NsplServiceTest {
     @Test
     void shouldReturnResultsWithPcd2IgnoreCaseSearch() {
         when(nsplRepo.findAllByPcd2IgnoreCase(POSTCODE)).thenReturn(Optional.of(NSPL));
-        when(nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE)).thenReturn(NSPL_HISTORY);
+        when(nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE))
+            .thenReturn(Optional.of(NSPL_HISTORY));
         when(osService.getOsAddressData(POSTCODE)).thenReturn(osResult);
 
         NsplAddress nsplAddress = nsplService.getAddressInfo(POSTCODE);
@@ -101,6 +104,29 @@ class NsplServiceTest {
 
         verify(nsplRepo, atLeastOnce()).findAllByPcdIgnoreCase(POSTCODE);
         verify(nsplRepo, atLeastOnce()).findAllByPcd2IgnoreCase(POSTCODE);
+        verify(nsplRepo, never()).findAllByPcdsIgnoreCase(POSTCODE);
+        verify(nsplRepo, never()).findAllByPostcodeTrimmed(POSTCODE);
+        verify(nsplHistoryRepo, atLeastOnce()).findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE);
+        verify(osService, atLeastOnce()).getOsAddressData(POSTCODE);
+    }
+
+    @Test
+    void shouldReturnResultsWithPcdsIgnoreCaseSearch() {
+        when(nsplRepo.findAllByPcdsIgnoreCase(POSTCODE)).thenReturn(Optional.of(NSPL));
+        when(nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE))
+            .thenReturn(Optional.of(NSPL_HISTORY));
+        when(osService.getOsAddressData(POSTCODE)).thenReturn(osResult);
+
+        NsplAddress nsplAddress = nsplService.getAddressInfo(POSTCODE);
+
+        assertEquals(nsplAddress.getPostcode(), POSTCODE, POSTCODE_MISMATCH);
+        assertEquals(nsplAddress.getFourCharLaCode(), GEOGCDO, FOUR_CHAR_MISMATCH);
+        assertEquals(nsplAddress.getNineCharLaCode(), LAUA, NINE_CHAR_MISMATCH);
+        assertEquals(nsplAddress.getAddresses(), osResult.get().getResults(), OS_MISMATCH);
+
+        verify(nsplRepo, atLeastOnce()).findAllByPcdIgnoreCase(POSTCODE);
+        verify(nsplRepo, atLeastOnce()).findAllByPcd2IgnoreCase(POSTCODE);
+        verify(nsplRepo, atLeastOnce()).findAllByPcdsIgnoreCase(POSTCODE);
         verify(nsplRepo, never()).findAllByPostcodeTrimmed(POSTCODE);
         verify(nsplHistoryRepo, atLeastOnce()).findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE);
         verify(osService, atLeastOnce()).getOsAddressData(POSTCODE);
@@ -109,7 +135,8 @@ class NsplServiceTest {
     @Test
     void shouldReturnResultsWithPcdTrimmedSearch() {
         when(nsplRepo.findAllByPostcodeTrimmed(POSTCODE)).thenReturn(Optional.of(NSPL));
-        when(nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE)).thenReturn(NSPL_HISTORY);
+        when(nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE))
+            .thenReturn(Optional.of(NSPL_HISTORY));
         when(osService.getOsAddressData(POSTCODE)).thenReturn(osResult);
 
         NsplAddress nsplAddress = nsplService.getAddressInfo(POSTCODE);
@@ -121,6 +148,7 @@ class NsplServiceTest {
 
         verify(nsplRepo, atLeastOnce()).findAllByPcdIgnoreCase(POSTCODE);
         verify(nsplRepo, atLeastOnce()).findAllByPcd2IgnoreCase(POSTCODE);
+        verify(nsplRepo, atLeastOnce()).findAllByPcdsIgnoreCase(POSTCODE);
         verify(nsplRepo, atLeastOnce()).findAllByPostcodeTrimmed(POSTCODE);
         verify(nsplHistoryRepo, atLeastOnce()).findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE);
         verify(osService, atLeastOnce()).getOsAddressData(POSTCODE);
@@ -128,7 +156,8 @@ class NsplServiceTest {
 
     @Test
     void shouldThrowNotFoundExceptionIfNoNsplResults() {
-        when(nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE)).thenReturn(NSPL_HISTORY);
+        when(nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE))
+            .thenReturn(Optional.of(NSPL_HISTORY));
         when(osService.getOsAddressData(POSTCODE)).thenReturn(osResult);
 
         assertThrows(NotFoundException.class, () -> nsplService.getAddressInfo(POSTCODE));
@@ -142,7 +171,8 @@ class NsplServiceTest {
     @Test
     void shouldThrowNotFoundExceptionIfNoOsResults() {
         when(nsplRepo.findAllByPcdIgnoreCase(POSTCODE)).thenReturn(Optional.of(NSPL));
-        when(nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE)).thenReturn(NSPL_HISTORY);
+        when(nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE))
+            .thenReturn(Optional.of(NSPL_HISTORY));
 
         assertThrows(NotFoundException.class, () -> nsplService.getAddressInfo(POSTCODE));
         verify(nsplRepo, atLeastOnce()).findAllByPcdIgnoreCase(POSTCODE);
@@ -150,5 +180,19 @@ class NsplServiceTest {
         verify(nsplRepo, never()).findAllByPostcodeTrimmed(POSTCODE);
         verify(nsplHistoryRepo, atLeastOnce()).findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE);
         verify(osService, atLeastOnce()).getOsAddressData(POSTCODE);
+    }
+
+    @Test
+    void shouldThrowNotFoundExceptionIfGeogcdResults() {
+        when(nsplRepo.findAllByPcdIgnoreCase(POSTCODE)).thenReturn(Optional.of(NSPL));
+        when(nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE))
+            .thenReturn(Optional.empty());
+
+        assertThrows(NotFoundException.class, () -> nsplService.getAddressInfo(POSTCODE));
+        verify(nsplRepo, atLeastOnce()).findAllByPcdIgnoreCase(POSTCODE);
+        verify(nsplRepo, never()).findAllByPcd2IgnoreCase(POSTCODE);
+        verify(nsplRepo, never()).findAllByPostcodeTrimmed(POSTCODE);
+        verify(nsplHistoryRepo, atLeastOnce()).findAllByGeogcdIgnoreCaseAndStatus(NSPL.getLaua(), LIVE);
+        verify(osService, never()).getOsAddressData(POSTCODE);
     }
 }

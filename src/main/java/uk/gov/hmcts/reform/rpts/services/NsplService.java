@@ -26,16 +26,31 @@ public class NsplService {
         this.osService = osService;
     }
 
+    /**
+     *
+     * Attempt to get address information from Ordinance Survey, and the
+     * 4 character and 9 character local authority code.
+     *
+     * For the 9 char code, there are different search paths using different columns
+     * within the Nspl table. If one is not successful, it will move on to the
+     * next.
+     *
+     * @param postcode The postcode required to get the necessary information
+     * @return The address, laua (9 char code) and the Geogcd (4 char la code)
+     */
     public NsplAddress getAddressInfo(String postcode) {
         log.info("Performing query for address search with postcode: {}", postcode);
         Nspl nspl = nsplRepo.findAllByPcdIgnoreCase(postcode)                // search by pcd
             .orElseGet(() -> nsplRepo.findAllByPcd2IgnoreCase(postcode)      // search by pcd2
-                .orElseGet(() -> nsplRepo.findAllByPostcodeTrimmed(postcode) // If no row, remove spaces from pcd
-                    .orElseThrow(() -> new NotFoundException("Postcode not found on NSPL DB: " + postcode))));
+                .orElseGet(() -> nsplRepo.findAllByPcdsIgnoreCase(postcode)  // search by pcds
+                    .orElseGet(() -> nsplRepo.findAllByPostcodeTrimmed(postcode) // If no row, remove spaces from pcd
+                        .orElseThrow(() -> new NotFoundException("Postcode not found on Database: " + postcode)))));
 
-        log.debug("Returned from NSPL DB: laua: {}, postcode: {}", nspl.getLaua(), nspl.getPcd());
+        log.info("Returned from NSPL DB: laua: {}, postcode: {}", nspl.getLaua(), nspl.getPcd());
         return new NsplAddress(nspl.getPcd(),
-                               nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(nspl.getLaua(), "live").getGeogcdo(),
+                               nsplHistoryRepo.findAllByGeogcdIgnoreCaseAndStatus(nspl.getLaua(), "live")
+                                   .orElseThrow(() -> new NotFoundException("4 char code not found on Database: "
+                                                                                + postcode)).getGeogcdo(),
                                nspl.getLaua(),
                                osService.getOsAddressData(postcode)
                                    .orElseThrow(() -> new NotFoundException("Postcode not found on OS: "

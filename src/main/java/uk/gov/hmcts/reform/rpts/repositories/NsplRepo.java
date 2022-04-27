@@ -19,4 +19,6 @@ public interface NsplRepo extends JpaRepository<Nspl, Integer> {
     Optional<Nspl> findAllByPcdIgnoreCase(String postcode);
 
     Optional<Nspl> findAllByPcd2IgnoreCase(String postcode);
+
+    Optional<Nspl> findAllByPcdsIgnoreCase(String postcode);
 }

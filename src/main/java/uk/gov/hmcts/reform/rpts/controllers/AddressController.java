@@ -26,6 +26,12 @@ public class AddressController {
         this.nsplService = nsplService;
     }
 
+    /**
+     * Endpoint to retrieve the address, 4 char, and 9 char local authority codes
+     *
+     * @param postcode The postcode required for the search
+     * @return An NsplAddress entity which contains address lines and local authority information.
+     */
     @GetMapping("/{postcode}")
     public ResponseEntity<NsplAddress> getAddress(@PathVariable("postcode") String postcode) {
         return ok(nsplService.getAddressInfo(postcode));
