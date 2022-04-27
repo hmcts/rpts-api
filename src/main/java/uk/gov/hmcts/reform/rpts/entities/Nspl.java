@@ -19,7 +19,7 @@ public class Nspl {
     private int id;
     private String pcd; // 7-character version of the postcode (e.g. 'BT1 1AA', 'BT486PL')
     private String pcd2; // 8-character version of the postcode (e.g. 'BT1  1AA', 'BT48 6PL')
-    private String pcds; // one space between the district and sector-unit part of the postcode (e.g. 'BT1 1AA', 'BT48 6PL') - possibly the most common formatting of postcodes.
+    private String pcds; // one space between the district and sector-unit part of the postcode (BT1 1AA' as 'BT48 6PL')
     private String doterm;
     private String oseast1m;
     private String osnrth1m;

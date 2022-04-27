@@ -27,7 +27,7 @@ public class AddressController {
     }
 
     /**
-     * Endpoint to retrieve the address, 4 char, and 9 char local authority codes
+     * Endpoint to retrieve the address, 4 char, and 9 char local authority codes.
      *
      * @param postcode The postcode required for the search
      * @return An NsplAddress entity which contains address lines and local authority information.
