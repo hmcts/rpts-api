@@ -15,10 +15,12 @@ import uk.gov.hmcts.reform.rpts.services.NsplService;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.validation.ConstraintViolationException;
 
 import static java.nio.file.Files.readAllBytes;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -52,6 +54,20 @@ class AddressControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().json(expectedJson))
             .andReturn();
+    }
+
+    @Test
+    void shouldReturnInvalidPostCodeError() throws Exception {
+        try {
+            mockMvc.perform(get(BASE_URL + "abc123")).andReturn();
+        } catch (NestedServletException e) {
+            assertThrows(ConstraintViolationException.class, () -> {
+                throw e.getCause();
+            });
+            assertThat(e.getMessage())
+                .containsPattern("getAddress.postcode: Provided postcode is not valid");
+        }
+        verifyNoInteractions(nsplService);
     }
 
     @Test
