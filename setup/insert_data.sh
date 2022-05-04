@@ -1,5 +1,6 @@
 # Run this script to populate local dev database with CSV information
 # This will import over 2 million rows into one of the tables
+# Note: Make sure you have ran the application before running this
 mkdir "./tmp";
 
 curl "https://www.arcgis.com/sharing/rest/content/items/aef0a4ef0dfb49749fe4f80724477687/data" -L -o "./tmp/uk_data.zip" \
@@ -14,9 +15,12 @@ curl "https://www.arcgis.com/sharing/rest/content/items/aef0a4ef0dfb49749fe4f807
   && rm "./tmp/equivalents_data.zip" \
   && rm "./tmp/uk_data.zip";
 
-# Dev test
 echo -e "Enter password when prompted and please be patient :) as there are many rows that will be added.";
 
+# Delete previous data (incase there are lingering rows based on a previous run)
+psql -U rpts -h localhost -W -c "DELETE FROM nspl;DELETE FROM nspl_history;";
+
+# Copy values from the spreadsheet to the two tables
 echo -e "$(psql -U rpts -h localhost -W -c "\COPY public.nspl(pcd,
     pcd2,
     pcds,
