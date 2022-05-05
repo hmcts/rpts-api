@@ -3,8 +3,11 @@ package uk.gov.hmcts.reform.rpts.util;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.CollectionUtils;
+import uk.gov.hmcts.reform.rpts.Application;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,12 +16,16 @@ import static io.restassured.RestAssured.given;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 
 @ContextConfiguration
+@SpringBootTest(classes = {Application.class}, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class FunctionalTestBase {
     protected static final String CONTENT_TYPE_VALUE = "application/json";
 
+    @Value("${TEST_URL:http://localhost:4001}")
+    private String testUrl;
+
     @BeforeEach
     public void setUp() {
-        RestAssured.baseURI = "http://localhost:4000";
+        RestAssured.baseURI = testUrl;
     }
 
     protected Response doGetRequest(final String path) {

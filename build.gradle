@@ -70,6 +70,7 @@ tasks.withType(JavaExec).configureEach {
 }
 
 tasks.withType(Test) {
+
   useJUnitPlatform()
 
   testLogging {
@@ -210,7 +211,16 @@ dependencies {
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
   }
 
+  integrationTestImplementation sourceSets.main.runtimeClasspath
+  integrationTestImplementation sourceSets.test.runtimeClasspath
+  integrationTestImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.16.3'
+  integrationTestImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.16.3'
+
+  functionalTestImplementation sourceSets.main.runtimeClasspath
   functionalTestImplementation group: 'io.rest-assured', name: 'rest-assured'
+  functionalTestImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.16.3'
+  functionalTestImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.16.3'
+
   smokeTestImplementation group: 'io.rest-assured', name: 'rest-assured'
 }
 
@@ -225,6 +235,14 @@ bootJar {
 }
 
 // Gradle 7.x issue, workaround from: https://github.com/gradle/gradle/issues/17236#issuecomment-894768083
+rootProject.tasks.named("processIntegrationTestResources") {
+  duplicatesStrategy = 'include'
+}
+
+rootProject.tasks.named("processFunctionalTestResources") {
+  duplicatesStrategy = 'include'
+}
+
 rootProject.tasks.named("processSmokeTestResources") {
   duplicatesStrategy = 'include'
 }
