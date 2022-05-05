@@ -16,16 +16,12 @@ import static io.restassured.RestAssured.given;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 
 @ContextConfiguration
-@SpringBootTest(classes = {Application.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class FunctionalTestBase {
     protected static final String CONTENT_TYPE_VALUE = "application/json";
 
-    @LocalServerPort
-    int serverPort;
-
     @BeforeEach
     public void setUp() {
-        RestAssured.baseURI = String.format("http://localhost:%s", serverPort);
+        RestAssured.baseURI = "http://localhost:4000";
     }
 
     protected Response doGetRequest(final String path) {
