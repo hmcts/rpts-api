@@ -1,10 +1,25 @@
+CREATE INDEX nspl_index_pcd ON nspl
+(
+    pcd
+);
+
+CREATE INDEX nspl_index_pcd2 ON nspl
+(
+    pcd2
+);
+
+CREATE INDEX nspl_index_pcds ON nspl
+(
+    pcds
+);
+
 DO $$
     BEGIN
         -- Required to run the copy command further down
         grant pg_read_server_files to rpts;
     EXCEPTION
               WHEN OTHERS THEN
-            raise notice 'The grant has not been applied.';
+            raise notice 'The grant has not been applied (note this applies to local only).';
             raise notice '% %', SQLERRM, SQLSTATE;
     END
 $$;
@@ -81,7 +96,7 @@ DO $$
 
     EXCEPTION
           WHEN OTHERS THEN
-        raise notice 'Skipping copy, or failure found.';
+        raise notice 'Skipping copy, or failure found (note this applies to local only).';
         raise notice '% %', SQLERRM, SQLSTATE;
     END
 $$;
