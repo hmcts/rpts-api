@@ -22,9 +22,9 @@ spring:
     name: Spring Boot Template
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE:rpts}${DB_OPTIONS:}
-    username: ${POSTGRES_USERNAME:rpts}
-    password: ${POSTGRES_PASSWORD:rpts}
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE:javadatabase}${DB_OPTIONS:}
+    username: ${POSTGRES_USERNAME:javapostgres}
+    password: ${POSTGRES_PASSWORD:javapassword}
     properties:
       charSet: UTF-8
     hikari:

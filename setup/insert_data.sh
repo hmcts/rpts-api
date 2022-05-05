@@ -19,10 +19,10 @@ curl "https://www.arcgis.com/sharing/rest/content/items/aef0a4ef0dfb49749fe4f807
 echo -e "Enter password when prompted and please be patient :) as there are many rows that will be added.";
 
 # Delete previous data (incase there are lingering rows based on a previous run)
-psql -U rpts -h localhost -W -c "DELETE FROM nspl;DELETE FROM nspl_history;";
+psql -U javapostgres -h localhost -W -c "DELETE FROM nspl;DELETE FROM nspl_history;";
 
 # Copy values from the spreadsheet to the two tables
-echo -e "$(psql -U rpts -h localhost -W -c "\COPY public.nspl(pcd,
+echo -e "$(psql -U javapostgres -h localhost -W -c "\COPY public.nspl(pcd,
     pcd2,
     pcds,
     dointr,
@@ -64,7 +64,7 @@ echo -e "$(psql -U rpts -h localhost -W -c "\COPY public.nspl(pcd,
     calncv,
     stp) FROM './tmp/NSPL_AUG_2021_UK.csv' CSV HEADER DELIMITER ',';")";
 
-echo -e "$(psql -U rpts -h localhost -W -c "\COPY public.nspl_history(
+echo -e "$(psql -U javapostgres -h localhost -W -c "\COPY public.nspl_history(
     GEOGCD,
     GEOGNM,
     GEOGNMW,

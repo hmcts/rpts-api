@@ -16,7 +16,7 @@ CREATE INDEX nspl_index_pcds ON nspl
 DO $$
     BEGIN
         -- Required to run the copy command further down
-        grant pg_read_server_files to rpts;
+        grant pg_read_server_files to javapostgres;
     EXCEPTION
               WHEN OTHERS THEN
             raise notice 'The grant has not been applied (note this applies to local only).';

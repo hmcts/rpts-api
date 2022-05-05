@@ -28,9 +28,9 @@ services:
     build:
       context: docker/database
     environment:
-      POSTGRES_DB: rpts
-      POSTGRES_USER: rpts
-      POSTGRES_PASSWORD: rpts
+      POSTGRES_DB: javadatabase
+      POSTGRES_USER: javapostgres
+      POSTGRES_PASSWORD: javapassword
     ports:
       - 5432:5432
     volumes:

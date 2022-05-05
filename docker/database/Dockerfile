@@ -1,6 +1,6 @@
 FROM postgres:11.2-alpine
 
-HEALTHCHECK --interval=10s --timeout=10s --retries=10 CMD psql -c 'select 1' -d rpts -U rpts
+HEALTHCHECK --interval=10s --timeout=10s --retries=10 CMD psql -c 'select 1' -d javadatabase -U javapostgres
 
 # Install prerequisites
 RUN apk --no-cache add curl
