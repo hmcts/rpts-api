@@ -1,6 +1,7 @@
 # Run this script to populate local dev database with CSV information
 # This will import over 2 million rows into one of the tables
-# Note: Make sure you have ran the application before running this
+# Note: Make sure you have ran the application before running this, and
+# this is to be used primarily to refresh the database rows.
 mkdir "./tmp";
 
 curl "https://www.arcgis.com/sharing/rest/content/items/aef0a4ef0dfb49749fe4f80724477687/data" -L -o "./tmp/uk_data.zip" \

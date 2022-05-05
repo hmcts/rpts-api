@@ -1,5 +1,16 @@
 DO $$
     BEGIN
+        grant pg_read_server_files to rpts;
+    EXCEPTION
+              WHEN OTHERS THEN
+            raise notice 'Not apply grant, as not preview or local.';
+            raise notice '% %', SQLERRM, SQLSTATE;
+    END
+$$;
+
+
+DO $$
+    BEGIN
         -- Copy the data to the temp tables
         COPY public.nspl(pcd,
             pcd2,
