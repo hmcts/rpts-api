@@ -209,7 +209,11 @@ dependencies {
     exclude group: 'junit', module: 'junit'
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
   }
+
   functionalTestImplementation group: 'io.rest-assured', name: 'rest-assured'
+  functionalTestImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.16.3'
+  functionalTestImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.16.3'
+
   smokeTestImplementation group: 'io.rest-assured', name: 'rest-assured'
 }
 
@@ -246,4 +250,3 @@ task migratePostgresDatabase(type: org.flywaydb.gradle.task.FlywayMigrateTask) {
     url = "jdbc:postgresql://${dburl}"
   }
 }
-

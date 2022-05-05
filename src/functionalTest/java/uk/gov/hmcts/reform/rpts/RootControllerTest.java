@@ -1,21 +1,20 @@
-package uk.gov.hmcts.reform.rpts.util;
+package uk.gov.hmcts.reform.rpts;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.hmcts.reform.rpts.util.FunctionalTestBase;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.OK;
 
 @ExtendWith({SpringExtension.class})
-
-public class rootControllerTest extends FunctionalTestBase {
+class RootControllerTest extends FunctionalTestBase {
 
     @Test
-    public void shouldDisplayWelcomeText() {
-        final var response = doGetRequest("localhost:4000/");
+    void shouldDisplayWelcomeText() {
+        final var response = doGetRequest("/d");
         assertThat(response.statusCode()).isEqualTo(OK.value());
-
     }
 
 }

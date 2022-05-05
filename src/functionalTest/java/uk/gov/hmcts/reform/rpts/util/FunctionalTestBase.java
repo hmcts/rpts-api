@@ -3,8 +3,9 @@ package uk.gov.hmcts.reform.rpts.util;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.CollectionUtils;
 import uk.gov.hmcts.reform.rpts.Application;
 
@@ -14,17 +15,17 @@ import java.util.concurrent.ConcurrentHashMap;
 import static io.restassured.RestAssured.given;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 
-@SpringBootTest(classes = {Application.class}, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-
+@ContextConfiguration
+@SpringBootTest(classes = {Application.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class FunctionalTestBase {
     protected static final String CONTENT_TYPE_VALUE = "application/json";
 
-    @Value("${TEST_URL:http://localhost:4000}")
-    private String testUrl;
+    @LocalServerPort
+    int serverPort;
 
     @BeforeEach
     public void setUp() {
-        RestAssured.baseURI = testUrl;
+        RestAssured.baseURI = String.format("http://localhost:%s", serverPort);
     }
 
     protected Response doGetRequest(final String path) {
@@ -58,7 +59,8 @@ public class FunctionalTestBase {
         return doPostRequest(path, null, body);
     }
 
-    protected Response doPostRequest(final String path, final Map<String, String> additionalHeaders, final String body) {
+    protected Response doPostRequest(final String path,
+                                     final Map<String, String> additionalHeaders, final String body) {
         return given()
             .relaxedHTTPSValidation()
             .headers(getRequestHeaders(additionalHeaders))
@@ -72,7 +74,8 @@ public class FunctionalTestBase {
         return doDeleteRequest(path, null, body);
     }
 
-    protected Response doDeleteRequest(final String path, final Map<String, String> additionalHeaders, final String body) {
+    protected Response doDeleteRequest(final String path,
+                                       final Map<String, String> additionalHeaders, final String body) {
         return given()
             .relaxedHTTPSValidation()
             .headers(getRequestHeaders(additionalHeaders))
