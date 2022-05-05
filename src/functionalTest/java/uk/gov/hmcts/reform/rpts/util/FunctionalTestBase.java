@@ -3,11 +3,8 @@ package uk.gov.hmcts.reform.rpts.util;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.CollectionUtils;
-import uk.gov.hmcts.reform.rpts.Application;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
