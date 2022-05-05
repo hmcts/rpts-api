@@ -1,13 +1,13 @@
 DO $$
     BEGIN
+        -- Required to run the copy command further down
         grant pg_read_server_files to rpts;
     EXCEPTION
               WHEN OTHERS THEN
-            raise notice 'Not apply grant, as not preview or local.';
+            raise notice 'The grant has not been applied.';
             raise notice '% %', SQLERRM, SQLSTATE;
     END
 $$;
-
 
 DO $$
     BEGIN
@@ -77,7 +77,7 @@ DO $$
             YEAR,
             STATUS) FROM '/Data/Equivalents.csv' CSV HEADER DELIMITER ',';
 
-        raise notice 'The data was copied to preview/local envs successfully';
+        raise notice 'The data was copied successfully';
 
     EXCEPTION
           WHEN OTHERS THEN

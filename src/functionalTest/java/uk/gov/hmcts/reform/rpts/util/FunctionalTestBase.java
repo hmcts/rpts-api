@@ -3,11 +3,7 @@ package uk.gov.hmcts.reform.rpts.util;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.CollectionUtils;
-import uk.gov.hmcts.reform.rpts.Application;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,17 +11,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import static io.restassured.RestAssured.given;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 
-@ContextConfiguration
-@SpringBootTest(classes = {Application.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class FunctionalTestBase {
     protected static final String CONTENT_TYPE_VALUE = "application/json";
 
-    @LocalServerPort
-    int serverPort;
-
     @BeforeEach
     public void setUp() {
-        RestAssured.baseURI = String.format("http://localhost:%s", serverPort);
+        RestAssured.baseURI = "http://localhost:4000";
     }
 
     protected Response doGetRequest(final String path) {
@@ -92,11 +83,4 @@ public class FunctionalTestBase {
         }
         return headers;
     }
-
-
-
-
-
-
-
 }

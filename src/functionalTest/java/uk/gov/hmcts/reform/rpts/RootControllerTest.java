@@ -13,8 +13,7 @@ class RootControllerTest extends FunctionalTestBase {
 
     @Test
     void shouldDisplayWelcomeText() {
-        final var response = doGetRequest("/d");
+        final var response = doGetRequest("/");
         assertThat(response.statusCode()).isEqualTo(OK.value());
     }
-
 }
