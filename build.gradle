@@ -94,6 +94,12 @@ ext.getVaultSecret = { String secretName ->
 
 task functional(type: Test) {
 
+  /**
+   * The TestContainer method of running the functional tests (to avoid
+   * having to add 2.8 million rows each time to a preview database that won't
+   * be there each time) requires us to get the secrets specified manually.
+   * This will not be required for envs where the OS_KEY value is found (ITHC etc)
+   */
   doFirst() {
     if (System.getenv("OS_KEY") == null) {
       exec {
