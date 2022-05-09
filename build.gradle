@@ -102,7 +102,9 @@ task functional(type: Test) {
       println("Loading secrets and admin credentials from vault")
       systemProperty 'OS_KEY', getVaultSecret('os-key');
     }
-    println('Not logging into Azure. OS secret found');
+    else {
+      println('Not logging into Azure; OS secret found');
+    }
   }
 
   description = "Runs functional tests"
