@@ -85,9 +85,6 @@ test {
 ext.getVaultSecret = { String secretName ->
   new ByteArrayOutputStream().withStream { os ->
     exec {
-      commandLine 'az', 'login', '--identity'
-    }
-    exec {
       commandLine 'az', 'keyvault', 'secret', 'show', '--vault-name', 'rpts-aat', '-o', 'tsv', '--query', 'value', '--name', secretName
       standardOutput = os
     }
@@ -98,8 +95,14 @@ ext.getVaultSecret = { String secretName ->
 task functional(type: Test) {
 
   doFirst() {
-    println("Loading secrets and admin credentials from vault")
-    systemProperty 'OS_KEY', getVaultSecret('os-key');
+    if (System.getenv("OS_KEY") == null) {
+      exec {
+        commandLine 'az', 'login', '--identity'
+      }
+      println("Loading secrets and admin credentials from vault")
+      systemProperty 'OS_KEY', getVaultSecret('os-key');
+    }
+    println('Not logging into Azure. OS secret found');
   }
 
   description = "Runs functional tests"
