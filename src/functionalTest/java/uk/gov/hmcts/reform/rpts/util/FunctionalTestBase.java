@@ -16,7 +16,8 @@ import static io.restassured.RestAssured.given;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 
 @ContextConfiguration
-@SpringBootTest(classes = {Application.class}, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes = {Application.class, DataUtil.class},
+    webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class FunctionalTestBase {
     protected static final String CONTENT_TYPE_VALUE = "application/json";
 
