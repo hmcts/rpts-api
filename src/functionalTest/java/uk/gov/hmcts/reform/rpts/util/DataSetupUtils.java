@@ -15,13 +15,13 @@ import uk.gov.hmcts.reform.rpts.repositories.NsplRepo;
  */
 @ContextConfiguration
 @SuppressWarnings({"PMD.ConstructorCallsOverridableMethod", "PMD.ExcessiveParameterList"})
-public class DataUtil {
+public class DataSetupUtils {
 
     private final NsplRepo nsplRepo;
     private final NsplHistoryRepo nsplHistoryRepo;
 
     @Autowired
-    public DataUtil(NsplRepo nsplRepo, NsplHistoryRepo nsplHistoryRepo) {
+    public DataSetupUtils(NsplRepo nsplRepo, NsplHistoryRepo nsplHistoryRepo) {
         this.nsplRepo = nsplRepo;
         this.nsplHistoryRepo = nsplHistoryRepo;
         setUpData();
