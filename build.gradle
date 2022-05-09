@@ -83,6 +83,15 @@ test {
 }
 
 task functional(type: Test) {
+
+  doFirst() {
+    if (System.getenv("TEST_URL") == null) {
+      println("Loading secrets and admin credentials from vault")
+
+      systemProperty 'OS_KEY', getVaultSecret('os-key');
+    }
+  }
+
   description = "Runs functional tests"
   group = "Verification"
   testClassesDirs = sourceSets.functionalTest.output.classesDirs

@@ -7,8 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.CollectionUtils;
 import uk.gov.hmcts.reform.rpts.Application;
-import uk.gov.hmcts.reform.rpts.config.FeignConfiguration;
-import uk.gov.hmcts.reform.rpts.os.OsClient;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,7 +15,7 @@ import static io.restassured.RestAssured.given;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 
 @ContextConfiguration
-@SpringBootTest(classes = {Application.class, DataSetupUtils.class, FeignConfiguration.class},
+@SpringBootTest(classes = {Application.class, DataSetupUtils.class},
     webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class FunctionalTestBase {
     protected static final String CONTENT_TYPE_VALUE = "application/json";
