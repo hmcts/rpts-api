@@ -21,12 +21,9 @@ import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 public class FunctionalTestBase {
     protected static final String CONTENT_TYPE_VALUE = "application/json";
 
-    @Value("${TEST_URL:http://localhost:4001}")
-    private String testUrl;
-
     @BeforeEach
     public void setUp() {
-        RestAssured.baseURI = testUrl;
+        RestAssured.baseURI = "http://localhost:4001";
     }
 
     protected Response doGetRequest(final String path) {
