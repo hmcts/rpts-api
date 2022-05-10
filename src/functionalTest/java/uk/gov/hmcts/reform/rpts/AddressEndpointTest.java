@@ -17,7 +17,6 @@ class AddressEndpointTest extends FunctionalTestBase {
     private static final String FOUR_CHAR_LA_CODE = "00HH";
     private static final String NINE_CHAR_LA_CODE = "E06000027";
 
-
     @Test
     void shouldRetrieveAddressAndLocalAuthorityCodes() {
 
@@ -28,6 +27,7 @@ class AddressEndpointTest extends FunctionalTestBase {
         assertThat(NsplAddressListExpected.getFourCharLaCode()).isEqualTo(FOUR_CHAR_LA_CODE);
         assertThat(NsplAddressListExpected.getNineCharLaCode()).isEqualTo(NINE_CHAR_LA_CODE);
 
+        // TODO: add postcode check, and addresses list check
     }
 
     @Test
@@ -35,6 +35,5 @@ class AddressEndpointTest extends FunctionalTestBase {
         final var response = doGetRequest(ADDRESS_SEARCH_ENDPOINT + "/TQ1 1BX");
         assertThat(response.statusCode()).isEqualTo(NOT_FOUND.value());
     }
-
 }
 
