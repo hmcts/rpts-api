@@ -9,7 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import uk.gov.hmcts.reform.rpts.entities.Nspl;
 import uk.gov.hmcts.reform.rpts.exceptions.NotFoundException;
 
-import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
@@ -40,7 +40,35 @@ public class NsplRepositoryTest {
     void shouldRetrieveRowUsingPcdIgnoreCase() {
         final Nspl result = nsplRepository.findAllByPcdIgnoreCase("TQ1 1BS")
             .orElseThrow(() -> new NotFoundException("Test failed as row not found."));
-        System.out.println("................+++++++++++++++" + result.getPcd());
+        assertThat(result).isNotNull();
+        assertThat(result.getPcd()).isEqualTo("TQ1 1BS");
+
+    }
+
+    @Test
+    void shouldRetrieveRowUsingPcd2IgnoreCaseSearch() {
+        final Nspl result = nsplRepository.findAllByPcd2IgnoreCase("TQ1  1BS")
+            .orElseThrow(() -> new NotFoundException("Test failed as row not found."));
+        assertThat(result).isNotNull();
+        assertThat(result.getPcd()).isEqualTo("TQ1 1BS");
+
+    }
+
+    @Test
+    void shouldRetrieveRowUsingPcdTrimmedIgnoreCaseSearch() {
+        final Nspl result = nsplRepository.findAllByPostcodeTrimmed("TQ11BS")
+            .orElseThrow(() -> new NotFoundException("Test failed as row not found."));
+        assertThat(result).isNotNull();
+        assertThat(result.getPcd()).isEqualTo("TQ1 1BS");
+
+    }
+
+    @Test
+    void shouldRetrieveRowUsingPcdsIgnoreCaseSearch() {
+        final Nspl result = nsplRepository.findAllByPcdsIgnoreCase("TQ1 1BS")
+            .orElseThrow(() -> new NotFoundException("Test failed as row not found."));
+        assertThat(result).isNotNull();
+        assertThat(result.getPcd()).isEqualTo("TQ1 1BS");
     }
 
     private void addNsplRow(int id, String pcd, String pcd2, String pcds, int dointr,
