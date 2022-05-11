@@ -1,14 +1,20 @@
 package uk.gov.hmcts.reform.rpts;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import uk.gov.hmcts.reform.rpts.models.NsplAddress;
 import uk.gov.hmcts.reform.rpts.util.FunctionalTestBase;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
-import uk.gov.hmcts.reform.rpts.models.NsplAddress;
 
 @ExtendWith({SpringExtension.class})
 class AddressEndpointTest extends FunctionalTestBase {
@@ -18,16 +24,21 @@ class AddressEndpointTest extends FunctionalTestBase {
     private static final String NINE_CHAR_LA_CODE = "E06000027";
 
     @Test
-    void shouldRetrieveAddressAndLocalAuthorityCodes() {
+    void shouldRetrieveAddressAndLocalAuthorityCodes() throws JsonProcessingException, JSONException {
 
         final var response = doGetRequest(ADDRESS_SEARCH_ENDPOINT + "/TQ1 1BS");
-        final NsplAddress NsplAddressListExpected = response.as(NsplAddress.class);
+        final NsplAddress nsplAddressListExpected = response.as(NsplAddress.class);
 
         assertThat(response.statusCode()).isEqualTo(OK.value());
-        assertThat(NsplAddressListExpected.getFourCharLaCode()).isEqualTo(FOUR_CHAR_LA_CODE);
-        assertThat(NsplAddressListExpected.getNineCharLaCode()).isEqualTo(NINE_CHAR_LA_CODE);
-
-        // TODO: add postcode check, and addresses list check
+        assertThat(nsplAddressListExpected.getFourCharLaCode()).isEqualTo(FOUR_CHAR_LA_CODE);
+        assertThat(nsplAddressListExpected.getNineCharLaCode()).isEqualTo(NINE_CHAR_LA_CODE);
+        assertThat(nsplAddressListExpected.getPostcode()).isEqualTo("TQ1 1BS");
+        final List<JsonNode> addresses = nsplAddressListExpected.getAddresses();
+        assertThat(addresses).isNotNull();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode newNode = mapper.readTree(String.valueOf(addresses));
+        assertThat(newNode.findPath("DPA").path("POSTCODE").textValue()).isEqualTo("TQ1 1BS");
+        assertThat(newNode.findPath("DPA").path("POST_TOWN").textValue()).isEqualTo("TORQUAY");
     }
 
     @Test
