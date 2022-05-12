@@ -15,7 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @SuppressWarnings({"PMD.ExcessiveParameterList"})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class NsplRepositoryTest {
+
+ class NsplRepositoryTest {
+    String postcode = "TQ1 1BS";
+    String exceptionMessage = "Test failed as row not found.";
 
     @Autowired
     private NsplRepo nsplRepository;
@@ -24,7 +27,7 @@ public class NsplRepositoryTest {
     void beforeAll() {
         // Add a row for the tests to work on so that the
         // new repo functions can be checked
-        addNsplRow(1, "TQ1 1BS", "TQ1  1BS", "TQ1 1BS", 198_001, "",
+        addNsplRow(1, "TQ1 1BS", "TQ1  1BS", postcode, 198_001, "",
                    1, "291855", "0063630", 1, "E00077165",
                    "E99999999", "E99999999", "E06000027",
                    "E05012268", "E18000010", "E40000006", "E92000001",
@@ -38,8 +41,8 @@ public class NsplRepositoryTest {
 
     @Test
     void shouldRetrieveRowUsingPcdIgnoreCase() {
-        final Nspl result = nsplRepository.findAllByPcdIgnoreCase("TQ1 1BS")
-            .orElseThrow(() -> new NotFoundException("Test failed as row not found."));
+        final Nspl result = nsplRepository.findAllByPcdIgnoreCase(postcode)
+            .orElseThrow(() -> new NotFoundException(exceptionMessage));
         assertThat(result).isNotNull();
         assertThat(result.getPcd()).isEqualTo("TQ1 1BS");
 
@@ -48,7 +51,7 @@ public class NsplRepositoryTest {
     @Test
     void shouldRetrieveRowUsingPcd2IgnoreCaseSearch() {
         final Nspl result = nsplRepository.findAllByPcd2IgnoreCase("TQ1  1BS")
-            .orElseThrow(() -> new NotFoundException("Test failed as row not found."));
+            .orElseThrow(() -> new NotFoundException(exceptionMessage));
         assertThat(result).isNotNull();
         assertThat(result.getPcd()).isEqualTo("TQ1 1BS");
 
@@ -57,7 +60,7 @@ public class NsplRepositoryTest {
     @Test
     void shouldRetrieveRowUsingPcdTrimmedIgnoreCaseSearch() {
         final Nspl result = nsplRepository.findAllByPostcodeTrimmed("TQ11BS")
-            .orElseThrow(() -> new NotFoundException("Test failed as row not found."));
+            .orElseThrow(() -> new NotFoundException(exceptionMessage));
         assertThat(result).isNotNull();
         assertThat(result.getPcd()).isEqualTo("TQ1 1BS");
 
@@ -66,7 +69,7 @@ public class NsplRepositoryTest {
     @Test
     void shouldRetrieveRowUsingPcdsIgnoreCaseSearch() {
         final Nspl result = nsplRepository.findAllByPcdsIgnoreCase("TQ1 1BS")
-            .orElseThrow(() -> new NotFoundException("Test failed as row not found."));
+            .orElseThrow(() -> new NotFoundException(exceptionMessage));
         assertThat(result).isNotNull();
         assertThat(result.getPcd()).isEqualTo("TQ1 1BS");
     }

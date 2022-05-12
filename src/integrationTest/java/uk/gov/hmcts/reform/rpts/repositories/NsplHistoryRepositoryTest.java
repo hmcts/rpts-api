@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SuppressWarnings({"PMD.ExcessiveParameterList"})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 
-public class NsplHistoryRepositoryTest {
+class NsplHistoryRepositoryTest {
 
     @Autowired
     private NsplHistoryRepo nsplHistoryRepo;
@@ -40,7 +40,7 @@ public class NsplHistoryRepositoryTest {
 
     }
 
-    private void addNsplHistoryRow(int id, String geogcd, String geognm, String geognmo,
+    void addNsplHistoryRow(int id, String geogcd, String geognm, String geognmo,
                                    String geogcdd, String geognmd, String geogcdh, String geognmh, String operDate,
                                    String termDate, String entityCd, String year, String status, String geogcdo) {
         NsplHistory nsplHistory = new NsplHistory();
