@@ -44,7 +44,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         final Nspl result = nsplRepository.findAllByPcdIgnoreCase(postcode)
             .orElseThrow(() -> new NotFoundException(exceptionMessage));
         assertThat(result).isNotNull();
-        assertThat(result.getPcd()).isEqualTo("TQ1 1BS");
+        assertThat(result.getPcd()).isEqualTo(postcode);
 
     }
 
@@ -53,7 +53,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         final Nspl result = nsplRepository.findAllByPcd2IgnoreCase("TQ1  1BS")
             .orElseThrow(() -> new NotFoundException(exceptionMessage));
         assertThat(result).isNotNull();
-        assertThat(result.getPcd()).isEqualTo("TQ1 1BS");
+        assertThat(result.getPcd()).isEqualTo(postcode);
 
     }
 
@@ -62,7 +62,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         final Nspl result = nsplRepository.findAllByPostcodeTrimmed("TQ11BS")
             .orElseThrow(() -> new NotFoundException(exceptionMessage));
         assertThat(result).isNotNull();
-        assertThat(result.getPcd()).isEqualTo("TQ1 1BS");
+        assertThat(result.getPcd()).isEqualTo(postcode);
 
     }
 
@@ -71,7 +71,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         final Nspl result = nsplRepository.findAllByPcdsIgnoreCase("TQ1 1BS")
             .orElseThrow(() -> new NotFoundException(exceptionMessage));
         assertThat(result).isNotNull();
-        assertThat(result.getPcd()).isEqualTo("TQ1 1BS");
+        assertThat(result.getPcd()).isEqualTo(postcode);
     }
 
     private void addNsplRow(int id, String pcd, String pcd2, String pcds, int dointr,
