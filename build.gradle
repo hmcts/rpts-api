@@ -70,6 +70,7 @@ tasks.withType(JavaExec).configureEach {
 }
 
 tasks.withType(Test) {
+
   useJUnitPlatform()
 
   testLogging {
@@ -81,7 +82,37 @@ test {
   failFast = true
 }
 
+ext.getVaultSecret = { String secretName ->
+  new ByteArrayOutputStream().withStream { os ->
+    exec {
+      commandLine 'az', 'keyvault', 'secret', 'show', '--vault-name', 'rpts-aat', '-o', 'tsv', '--query', 'value', '--name', secretName
+      standardOutput = os
+    }
+    return os.toString().replace('\n', '')
+  }
+}
+
 task functional(type: Test) {
+
+  /**
+   * The TestContainer method of running the functional tests (to avoid
+   * having to add 2.8 million rows each time to a preview database that won't
+   * be there each time) requires us to get the secrets specified manually.
+   * This will not be required for envs where the OS_KEY value is found (ITHC etc)
+   */
+  doFirst() {
+    if (System.getenv("OS_KEY") == null) {
+      exec {
+        commandLine 'az', 'login', '--identity'
+      }
+      println("Loading secrets and admin credentials from vault")
+      systemProperty 'OS_KEY', getVaultSecret('os-key');
+    }
+    else {
+      println('Not logging into Azure; OS secret found');
+    }
+  }
+
   description = "Runs functional tests"
   group = "Verification"
   testClassesDirs = sourceSets.functionalTest.output.classesDirs
@@ -161,6 +192,15 @@ dependencyCheck {
   }
 }
 
+dependencyManagement {
+  dependencies {
+    // avoid CVE-2021-29425
+    dependencySet(group: 'commons-io', version: '2.11.0') {
+      entry 'commons-io'
+    }
+  }
+}
+
 repositories {
   mavenLocal()
   mavenCentral()
@@ -176,9 +216,14 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-json'
+  implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
   implementation group: 'org.postgresql', name: 'postgresql'
   implementation group: 'org.flywaydb', name: 'flyway-core'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+  implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.1'
+
+  implementation group: 'org.projectlombok', name: 'lombok'
+  annotationProcessor 'org.projectlombok:lombok'
 
   implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.8'
   implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.2.2'
@@ -196,6 +241,16 @@ dependencies {
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
   }
 
+  integrationTestImplementation sourceSets.main.runtimeClasspath
+  integrationTestImplementation sourceSets.test.runtimeClasspath
+  integrationTestImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.16.3'
+  integrationTestImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.16.3'
+
+  functionalTestImplementation sourceSets.main.runtimeClasspath
+  functionalTestImplementation group: 'io.rest-assured', name: 'rest-assured'
+  functionalTestImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.16.3'
+  functionalTestImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.16.3'
+
   smokeTestImplementation group: 'io.rest-assured', name: 'rest-assured'
 }
 
@@ -210,6 +265,14 @@ bootJar {
 }
 
 // Gradle 7.x issue, workaround from: https://github.com/gradle/gradle/issues/17236#issuecomment-894768083
+rootProject.tasks.named("processIntegrationTestResources") {
+  duplicatesStrategy = 'include'
+}
+
+rootProject.tasks.named("processFunctionalTestResources") {
+  duplicatesStrategy = 'include'
+}
+
 rootProject.tasks.named("processSmokeTestResources") {
   duplicatesStrategy = 'include'
 }
@@ -232,4 +295,3 @@ task migratePostgresDatabase(type: org.flywaydb.gradle.task.FlywayMigrateTask) {
     url = "jdbc:postgresql://${dburl}"
   }
 }
-

@@ -22,9 +22,9 @@ spring:
     name: Spring Boot Template
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE:rpts}${DB_OPTIONS:}
-    username: ${POSTGRES_USERNAME:rpts}
-    password: ${POSTGRES_PASSWORD:rpts}
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE:javadatabase}${DB_OPTIONS:}
+    username: ${POSTGRES_USERNAME:javapostgres}
+    password: ${POSTGRES_PASSWORD:javapassword}
     properties:
       charSet: UTF-8
     hikari:
@@ -49,3 +49,9 @@ dbMigration:
   # When true, the app will run DB migration on startup.
   # Otherwise, it will just check if all migrations have been applied (and fail to start if not).
   runOnStartup: ${RUN_DB_MIGRATION_ON_STARTUP:true}
+
+os:
+  key: ${OS_KEY:}
+  url: https://api.os.uk/search/places/v1
+  endpoint:
+    postcode-search: /postcode
