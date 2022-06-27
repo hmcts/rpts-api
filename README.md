@@ -8,6 +8,8 @@ Since Spring Boot 2.1 bean overriding is disabled. If you want to enable it you 
 
 JUnit 5 is now enabled by default in the project. Please refrain from using JUnit4 and use the next generation
 
+Further information about environments, use cases, routes and so on can be found on HMCTS's confluence page 
+
 ## Building and deploying the application
 
 ### Building the application
