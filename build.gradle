@@ -194,9 +194,20 @@ dependencyCheck {
 
 dependencyManagement {
   dependencies {
-    // avoid CVE-2021-29425
+    // CVE-2018-10237 - Unbounded memory allocation
+    dependencySet(group: 'com.google.guava', version: '31.1-jre') {
+      entry 'guava'
+    }
+    //CVE-2021-29425
     dependencySet(group: 'commons-io', version: '2.11.0') {
       entry 'commons-io'
+    }
+    // solves CVE-2022-25857
+    dependencySet(
+      group: 'org.yaml',
+      version: '1.33'
+    ) {
+      entry 'snakeyaml'
     }
   }
 }
@@ -217,7 +228,7 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-json'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
-  implementation group: 'org.postgresql', name: 'postgresql'
+  implementation group: 'org.postgresql', name: 'postgresql', version: '42.5.1'
   implementation group: 'org.flywaydb', name: 'flyway-core'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
   implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.4'
@@ -226,8 +237,10 @@ dependencies {
   annotationProcessor 'org.projectlombok:lombok'
 
   implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.9'
-  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.3'
-  implementation group: 'com.fasterxml.jackson', name: 'jackson-bom', version: '2.13.2.20220324', ext: 'pom'
+  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.14.0-rc3'
+  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.0-rc3'
+  implementation group: 'com.fasterxml.jackson', name: 'jackson-bom', version: '2.14.0-rc3', ext: 'pom'
+  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.14.0-rc3'
 
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: '6.0.1'
 
@@ -243,13 +256,13 @@ dependencies {
 
   integrationTestImplementation sourceSets.main.runtimeClasspath
   integrationTestImplementation sourceSets.test.runtimeClasspath
-  integrationTestImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.17.2'
-  integrationTestImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.17.2'
+  integrationTestImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.17.5'
+  integrationTestImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.17.5'
 
   functionalTestImplementation sourceSets.main.runtimeClasspath
   functionalTestImplementation group: 'io.rest-assured', name: 'rest-assured'
-  functionalTestImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.17.2'
-  functionalTestImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.17.2'
+  functionalTestImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.17.5'
+  functionalTestImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.17.5'
 
   smokeTestImplementation group: 'io.rest-assured', name: 'rest-assured'
 }
