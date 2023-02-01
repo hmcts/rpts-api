@@ -29,7 +29,7 @@ public class DataSetupUtils {
 
     public void setUpData() {
 
-        addNsplRow(1, "TQ1 1BS", "TQ1  1BS", "TQ1 1BS", 198_001, "",
+        addNsplRow(1, "IP1 1EJ", "IP1  1EJ", "IP11EJ", 198_001, "",
                    1, "291855", "0063630", 1, "E00077165",
                    "E99999999", "E99999999", "E06000027",
                    "E05012268", "E18000010", "E40000006", "E92000001",

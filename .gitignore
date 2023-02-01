@@ -12,6 +12,8 @@ bin/main/application.yaml
 .settings
 .springBeans
 
+./setup/tmp
+
 ### IntelliJ IDEA ###
 .idea
 /out
