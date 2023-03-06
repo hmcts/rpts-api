@@ -1,3 +1,26 @@
+#idam:
+#  s2s:
+#    microservice: ${AUTH_PROVIDER_SERVICE_CLIENT_MICROSERVICE:finrem_case_orchestration}
+#  s2s-auth:
+#    totp_secret: ${AUTH_PROVIDER_SERVICE_CLIENT_KEY:IPLOE65ZAKMB2KWX}
+#  api:
+#    url: ${IDAM_API_URL:https://idam-api.aat.platform.hmcts.net}
+
+send-letter:
+  url: http://localhost:8485
+
+idam:
+  s2s-auth:
+    url: ${S2S_URL:http://rpe-service-auth-provider-aat.service.core-compute-aat.internal}
+    totp_secret: ${S2S_SECRET:IPLOE65ZAKMB2KWX}
+    microservice: ${S2S_NAME:finrem_case_orchestration}
+  client:
+    id: 'bsp'
+    secret: ${IDAM_CLIENT_SECRET:2QFX-7GOV-GVYN-A5CA}
+    redirect_uri: http://localhost:4000/oauth2/callback
+    cache:
+      refresh-before-expire-in-sec: 300
+
 server:
   port: 4000
 
