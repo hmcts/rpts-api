@@ -22,4 +22,9 @@
     <cve>CVE-2021-4277</cve><!-- Wait until a version exists that fixes this -->
     <cve>CVE-2022-45143</cve><!-- Wait until a version exists that fixes this -->
   </suppress>
+  <!-- https://issues.apache.org/jira/browse/CASSANDRA-18389 -->
+  <suppress>
+    <packageUrl regex="true">^pkg:maven/com\.fasterxml\.jackson\.core/jackson\-core.*$</packageUrl>
+    <cve>CVE-2022-45688</cve>
+  </suppress>
 </suppressions>
