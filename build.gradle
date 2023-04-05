@@ -214,10 +214,6 @@ dependencyManagement {
     ) {
       entry 'snakeyaml'
     }
-    // CVE-2020-8908
-    dependencySet(group: 'com.google.guava', version: '31.1') {
-      entry 'guava'
-    }
     // CVE-2023-24998
     dependencySet(group: 'commons-fileupload', version: '1.5') {
       entry 'commons-fileupload'
