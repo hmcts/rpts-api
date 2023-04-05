@@ -225,7 +225,7 @@ dependencies {
   implementation group: 'org.postgresql', name: 'postgresql', version: '42.6.0'
   implementation group: 'org.flywaydb', name: 'flyway-core'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
-  implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '4.0.1'
+  implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.6'
 
   implementation group: 'org.projectlombok', name: 'lombok'
   annotationProcessor 'org.projectlombok:lombok'
@@ -249,6 +249,8 @@ dependencies {
   implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: log4JVersion
 
   implementation group: 'io.github.resilience4j', name: 'resilience4j-spring-boot2', version: '2.0.2'
+
+  implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: '6.0.1'
 
   testImplementation(platform('org.junit:junit-bom:5.8.2'))
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
