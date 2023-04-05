@@ -41,6 +41,9 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+  # This is needed as locally, all tables are in a single schema. Flyway is only enabled on the clusters by default
+  flyway:
+    enabled: ${ENABLE_FLYWAY:false}
 
 hibernate:
   show_sql=true:
