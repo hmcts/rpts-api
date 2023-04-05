@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.rpts.controllers;
 
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import javax.validation.constraints.Pattern;
 
 import static org.springframework.http.ResponseEntity.ok;
 
+@RateLimiter(name = "default")
 @RestController
 @Validated
 @RequestMapping(

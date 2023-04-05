@@ -55,3 +55,11 @@ os:
   url: https://api.os.uk/search/places/v1
   endpoint:
     postcode-search: /postcode
+
+resilience4j:
+  ratelimiter:
+    instances:
+      default:
+        limitForPeriod: 4
+        limitRefreshPeriod: 1s
+        timeoutDuration: 0
