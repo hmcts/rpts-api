@@ -9,7 +9,10 @@ import uk.gov.hmcts.reform.rpts.models.BulkPrintRequest;
 import uk.gov.hmcts.reform.sendletter.api.LetterWithPdfsRequest;
 import uk.gov.hmcts.reform.sendletter.api.SendLetterApi;
 import uk.gov.hmcts.reform.sendletter.api.SendLetterResponse;
+import uk.gov.hmcts.reform.sendletter.api.model.v3.Document;
+import uk.gov.hmcts.reform.sendletter.api.model.v3.LetterV3;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +31,7 @@ public class BulkPrintService {
     private static final String LETTER_TYPE_KEY = "letterType";
     private static final String CASE_REFERENCE_NUMBER_KEY = "caseReferenceNumber";
     private static final String CASE_IDENTIFIER_KEY = "caseIdentifier";
+    private static final String RECIPIENTS = "recipients";
 
     private static final String FILE_NAMES = "fileNames";
 
@@ -45,14 +49,15 @@ public class BulkPrintService {
 
         log.info("Sending {} for case {}", letterType, caseId);
 
-        final List<String> documents = listOfDocumentsAsByteArray.stream()
-            .map(getEncoder()::encodeToString)
+        final List<Document> documents = listOfDocumentsAsByteArray.stream()
+            .map(docBytes -> new Document(getEncoder().encodeToString(docBytes), 3))
             .collect(toList());
 
         SendLetterResponse sendLetterResponse = sendLetterApi.sendLetter(
             "test",
-            new LetterWithPdfsRequest(documents,
-                                      XEROX_TYPE_PARAMETER, getAdditionalData(caseId, letterType, bulkPrintRequest)
+            new LetterV3("a type",
+                         documents,
+                         getAdditionalData(caseId, letterType, bulkPrintRequest)
             )
         );
 
@@ -68,6 +73,7 @@ public class BulkPrintService {
         additionalData.put(CASE_IDENTIFIER_KEY, caseId);
         additionalData.put(CASE_REFERENCE_NUMBER_KEY, caseId);
         additionalData.put(FILE_NAMES, getFileNames(bulkPrintRequest));
+//        additionalData.put(RECIPIENTS, Arrays.asList("Gilligan Blobbers", "Querky Mcgibbins"));
         return additionalData;
     }
 

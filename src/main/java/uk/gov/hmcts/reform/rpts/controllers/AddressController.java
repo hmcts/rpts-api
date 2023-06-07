@@ -86,28 +86,16 @@ public class AddressController {
 
         List<UUID> uuidList = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
-            try {
+        for (int i = 0; i < 3; i++) {
 
-                UUID uuid = bulkPrintService.send(
-                    bulkPrintRequest,
-                    Arrays.asList(
-                        Files.readAllBytes(file.toPath()),
-                        Files.readAllBytes(file2.toPath())
-                    )
-                );
-                uuidList.add(uuid);
-
-            } catch (Exception ex) {
-                UUID uuid = bulkPrintService.send(
-                    bulkPrintRequest,
-                    Arrays.asList(
-                        Files.readAllBytes(file.toPath()),
-                        Files.readAllBytes(file2.toPath())
-                    )
-                );
-                uuidList.add(uuid);
-            }
+            UUID uuid = bulkPrintService.send(
+                bulkPrintRequest,
+                Arrays.asList(
+                    Files.readAllBytes(file.toPath()),
+                    Files.readAllBytes(file2.toPath())
+                )
+            );
+            uuidList.add(uuid);
         }
         return ResponseEntity.ok(uuidList);
     }
