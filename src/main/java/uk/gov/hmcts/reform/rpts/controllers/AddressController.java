@@ -1,6 +1,6 @@
 package uk.gov.hmcts.reform.rpts.controllers;
 
-import nonapi.io.github.classgraph.utils.FileUtils;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +20,15 @@ import javax.validation.constraints.Pattern;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.ok;
 
+@RateLimiter(name = "default")
 @RestController
 @Validated
 @RequestMapping(

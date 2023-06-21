@@ -64,6 +64,9 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+  # This is needed as locally, all tables are in a single schema. Flyway is only enabled on the clusters by default
+  flyway:
+    enabled: ${ENABLE_FLYWAY:false}
 
 hibernate:
   show_sql=true:
@@ -78,3 +81,11 @@ os:
   url: https://api.os.uk/search/places/v1
   endpoint:
     postcode-search: /postcode
+
+resilience4j:
+  ratelimiter:
+    instances:
+      default:
+        limitForPeriod: 4
+        limitRefreshPeriod: 1s
+        timeoutDuration: 0
