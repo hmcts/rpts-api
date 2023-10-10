@@ -245,7 +245,7 @@ dependencies {
   }
 
   implementation( group: 'com.google.guava', name: 'guava').version {
-    strictly("32.1-jre")
+    strictly("32.1.2-jre")
   }
 
   implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4JVersion
