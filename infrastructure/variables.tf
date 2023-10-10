@@ -3,13 +3,12 @@ variable "product" {
   default = "rpts"
 }
 
-variable "component" {
-  type    = string
-  default = "api"
-}
-
 variable "location" {
   default = "UK South"
+}
+
+variable "component" {
+  default = "api"
 }
 
 variable "env" {
@@ -52,3 +51,9 @@ variable "appinsights_location" {
   default     = "West Europe"
   description = "Location for Application Insights"
 }
+
+variable "aks_subscription_id" {
+  default = ""
+}
+
+variable "jenkins_AAD_objectId" {}
