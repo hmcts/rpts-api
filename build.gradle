@@ -230,7 +230,8 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
   implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.6'
 
-  implementation group: 'com.github.hmcts', name: 'send-letter-client', version: '3.0.22'
+//  implementation group: 'com.github.hmcts', name: 'send-letter-client', version: '4.0.2'
+  implementation project(':send-letter-client')
   implementation group: 'com.github.hmcts', name:'service-auth-provider-java-client', version: "3.1.1", {
     exclude group: 'org.apache.logging.log4j', module: 'log4j-api'
     exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'

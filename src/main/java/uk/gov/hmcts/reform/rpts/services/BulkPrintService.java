@@ -12,6 +12,9 @@ import uk.gov.hmcts.reform.sendletter.api.SendLetterResponse;
 import uk.gov.hmcts.reform.sendletter.api.model.v3.Document;
 import uk.gov.hmcts.reform.sendletter.api.model.v3.LetterV3;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +45,7 @@ public class BulkPrintService {
      * Note: the order of documents you send to this service is the order in which they will print.
      */
 
-    public UUID send(final BulkPrintRequest bulkPrintRequest, final List<byte[]> listOfDocumentsAsByteArray) {
+    public UUID send(final BulkPrintRequest bulkPrintRequest, final List<byte[]> listOfDocumentsAsByteArray) throws IOException {
 
         String letterType = bulkPrintRequest.getLetterType();
         String caseId = bulkPrintRequest.getCaseId();
@@ -69,12 +72,30 @@ public class BulkPrintService {
     private Map<String, Object> getAdditionalData(final String caseId, final String letterType,
                                                   final BulkPrintRequest bulkPrintRequest) {
         final Map<String, Object> additionalData = new HashMap<>();
-        additionalData.put(LETTER_TYPE_KEY, letterType);
-        additionalData.put(CASE_IDENTIFIER_KEY, caseId);
-        additionalData.put(CASE_REFERENCE_NUMBER_KEY, caseId);
-        additionalData.put(FILE_NAMES, getFileNames(bulkPrintRequest));
-//        additionalData.put(RECIPIENTS, Arrays.asList("Gilligan Blobbers", "Querky Mcgibbins"));
+//        additionalData.put(LETTER_TYPE_KEY, UUID.randomUUID());
+
+//        1448915163945522585
+//        test_first_name test_middle_name test_last_name
+//        general-letter
+//        d5aa76e1-158c-431e-90f3-d43cd72f34f0
+
+        additionalData.put(CASE_IDENTIFIER_KEY, "1448915163945522588");
+        additionalData.put(CASE_REFERENCE_NUMBER_KEY, "1448915163945522588");
+        additionalData.put("letterType", "general-letter");
+//        additionalData.put(FILE_NAMES, getFileNames(bulkPrintRequest));
+//        additionalData.put(RECIPIENTS, Arrays.asList("Gilligan Blobbers", "Querky Mcgibbins",
+//                                                     UUID.randomUUID(), UUID.randomUUID()));
+//        additionalData.put(RECIPIENTS, Arrays.asList("Respondent FN LN"));
+        additionalData.put(RECIPIENTS, Arrays.asList("OTHER PERSON FN LN"));
         return additionalData;
+
+//        {"recipients":["1692693646370588","Test  User","respondent-aos-pack"],
+//            "caseReferenceNumber":"1692693646370588","letterType":"respondent-aos-pack"
+//            ,"caseIdentifier":"1692693646370588"}
+
+//        {"recipients":["1692693646370588","Test  User","applicant-aos-pack"],
+//            "caseReferenceNumber":"1692693646370588","letterType":"applicant-aos-pack",
+//            "caseIdentifier":"1692693646370588"}
     }
 
     private List<String> getFileNames(BulkPrintRequest bulkPrintRequest) {

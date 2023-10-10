@@ -1,0 +1,3 @@
+include ':rpts-api', ':send-letter-client'
+project(':rpts-api').projectDir = new File(settingsDir, 'rpts-api')
+project(':send-letter-client').projectDir = new File(settingsDir, 'send-letter-client')

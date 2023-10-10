@@ -6,6 +6,8 @@
 #  api:
 #    url: ${IDAM_API_URL:https://idam-api.aat.platform.hmcts.net}
 
+
+
 send-letter:
   url: http://localhost:8485
 
@@ -32,7 +34,7 @@ management:
     web:
       base-path: /
       exposure:
-        include: health, info, prometheus
+        include: health, info, prometheus, mappings
 
 springdoc:
   packagesToScan: uk.gov.hmcts.reform.rpts.controllers
@@ -66,7 +68,7 @@ spring:
             non_contextual_creation: true
   # This is needed as locally, all tables are in a single schema. Flyway is only enabled on the clusters by default
   flyway:
-    enabled: ${ENABLE_FLYWAY:false}
+    enabled: ${ENABLE_FLYWAY:true}
 
 hibernate:
   show_sql=true:

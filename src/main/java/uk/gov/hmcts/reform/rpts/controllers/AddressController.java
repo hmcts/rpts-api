@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.rpts.controllers;
 
+import feign.FeignException;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -66,6 +67,7 @@ public class AddressController {
     @GetMapping("/test")
     public ResponseEntity<List<UUID>> test() throws IOException {
 
+        System.out.println("Goes into here");
 
         BulkPrintDocument bulkPrintDocument = new BulkPrintDocument();
         bulkPrintDocument.setFileName("dummy.pdf");
@@ -80,22 +82,27 @@ public class AddressController {
         bulkPrintRequest.setLetterType("caselettertype");
 
         ClassLoader classLoader = AddressController.class.getClassLoader();
-        File file = new File(Objects.requireNonNull(classLoader.getResource("test_pdf.pdf")).getFile());
-        File file2 = new File(Objects.requireNonNull(classLoader.getResource("test_pdf2.pdf")).getFile());
+        File file = new File(Objects.requireNonNull(classLoader.getResource("prl002_other.pdf")).getFile());
+//        File file2 = new File(Objects.requireNonNull(classLoader.getResource("NFD-respondent-request1.pdf")).getFile());
 
         List<UUID> uuidList = new ArrayList<>();
 
-        for (int i = 0; i < 3; i++) {
+        try {
+            for (int i = 0; i < 1; i++) {
 
-            UUID uuid = bulkPrintService.send(
-                bulkPrintRequest,
-                Arrays.asList(
-                    Files.readAllBytes(file.toPath()),
-                    Files.readAllBytes(file2.toPath())
-                )
-            );
-            uuidList.add(uuid);
+                UUID uuid = bulkPrintService.send(
+                    bulkPrintRequest,
+                    Arrays.asList(
+                        Files.readAllBytes(file.toPath())
+//                        Files.readAllBytes(file2.toPath())
+                    )
+                );
+                uuidList.add(uuid);
+            }
+            return ResponseEntity.ok(uuidList);
+        } catch (FeignException.FeignClientException ex) {
+            System.out.println("booyaawajodawkdokawodawkodkaod");
+            throw ex;
         }
-        return ResponseEntity.ok(uuidList);
     }
 }

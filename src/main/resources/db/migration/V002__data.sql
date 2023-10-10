@@ -67,7 +67,7 @@ DO $$
             pfa,
             imd,
             calncv,
-            stp) FROM '/Data/NSPL_AUG_2021_UK.csv' CSV HEADER DELIMITER ',';
+            stp) FROM '/Data/NSPL_MAY_2022_UK.csv' CSV HEADER DELIMITER ',';
 
         COPY public.nspl_history(
             GEOGCD,
