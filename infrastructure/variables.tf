@@ -47,11 +47,6 @@ variable "database_name" {
   default = "rpts"
 }
 
-variable "appinsights_location" {
-  default     = "West Europe"
-  description = "Location for Application Insights"
-}
-
 variable "aks_subscription_id" {
   default = ""
 }
