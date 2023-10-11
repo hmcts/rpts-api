@@ -36,8 +36,4 @@ resource "azurerm_key_vault_secret" "flexible_secret" {
   })
   content_type    = ""
   expiration_date = timeadd(timestamp(), "17520h")
-
-  depends_on = [
-    module.postgresql
-  ]
 }
