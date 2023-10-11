@@ -28,7 +28,7 @@ locals {
 
 resource "azurerm_key_vault_secret" "flexible_secret" {
   for_each     = { for secret in local.flexible_secrets : secret.name_suffix => secret }
-  key_vault_id = data.azurerm_key_vault.kv.id
+  key_vault_id = data.azurerm_key_vault.rpts_key_vault.id
   name         = "${local.flexible_secret_prefix}-${each.value.name_suffix}"
   value        = each.value.value
   tags = merge(var.common_tags, {
