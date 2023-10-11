@@ -15,7 +15,7 @@ terraform {
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
-      version = "3.11.0"
+      version = "3.75.0"
     }
     azuread = {
       source  = "hashicorp/azuread"
@@ -73,7 +73,7 @@ module "postgresql" {
   ]
   common_tags   = var.common_tags
   business_area = "cft"
-  pgsql_version = "14"
+  pgsql_version = "15"
 
   admin_user_object_id = var.jenkins_AAD_objectId
 }
