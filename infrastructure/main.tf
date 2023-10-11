@@ -73,7 +73,7 @@ module "postgresql" {
   ]
   common_tags   = var.common_tags
   business_area = "cft"
-  pgsql_version = "15"
+  pgsql_version = "14"
 
   admin_user_object_id = var.jenkins_AAD_objectId
 }
