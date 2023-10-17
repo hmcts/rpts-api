@@ -206,6 +206,11 @@ dependencyManagement {
     dependencySet(group: 'commons-fileupload', version: '1.5') {
       entry 'commons-fileupload'
     }
+    dependencySet(group: 'org.apache.tomcat.embed', version: '9.0.82') {
+      entry 'tomcat-embed-core'
+      entry 'tomcat-embed-el'
+      entry 'tomcat-embed-websocket'
+    }
   }
 }
 
