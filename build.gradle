@@ -206,6 +206,8 @@ dependencyManagement {
     dependencySet(group: 'commons-fileupload', version: '1.5') {
       entry 'commons-fileupload'
     }
+    // CVE-2023-28709
+    // CVE-2023-42794, CVE-2023-42795, CVE-2023-45648
     dependencySet(group: 'org.apache.tomcat.embed', version: '9.0.82') {
       entry 'tomcat-embed-core'
       entry 'tomcat-embed-el'
