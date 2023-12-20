@@ -5,4 +5,8 @@
     <packageUrl regex="true">^pkg:maven/com.fasterxml.jackson.core/jackson-databind@.*$</packageUrl>
     <cve>CVE-2023-35116</cve>
   </suppress>
+  <suppress>
+    <notes>Wait until a version exists that fixes</notes>
+    <cve>CVE-2023-33202</cve>
+  </suppress>
 </suppressions>
