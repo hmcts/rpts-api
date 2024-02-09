@@ -64,6 +64,13 @@ public class AddressController {
         return ok(nsplService.getAddressInfo(postcode));
     }
 
+    @GetMapping("/get-byte-array")
+    public ResponseEntity<byte[]> getByteArray() throws IOException {
+        ClassLoader classLoader = AddressController.class.getClassLoader();
+        File file = new File(Objects.requireNonNull(classLoader.getResource("test_pdf.pdf")).getFile());
+        return ResponseEntity.ok(Files.readAllBytes(file.toPath()));
+    }
+
     @GetMapping("/test")
     public ResponseEntity<List<UUID>> test() throws IOException {
 
@@ -82,7 +89,7 @@ public class AddressController {
         bulkPrintRequest.setLetterType("caselettertype");
 
         ClassLoader classLoader = AddressController.class.getClassLoader();
-        File file = new File(Objects.requireNonNull(classLoader.getResource("prl002_other.pdf")).getFile());
+        File file = new File(Objects.requireNonNull(classLoader.getResource("test_pdf.pdf")).getFile());
 //        File file2 = new File(Objects.requireNonNull(classLoader.getResource("NFD-respondent-request1.pdf")).getFile());
 
         List<UUID> uuidList = new ArrayList<>();

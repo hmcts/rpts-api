@@ -79,14 +79,16 @@ public class BulkPrintService {
 //        general-letter
 //        d5aa76e1-158c-431e-90f3-d43cd72f34f0
 
-        additionalData.put(CASE_IDENTIFIER_KEY, "1448915163945522588");
+        additionalData.put(CASE_IDENTIFIER_KEY, "1448915163945522589");
         additionalData.put(CASE_REFERENCE_NUMBER_KEY, "1448915163945522588");
         additionalData.put("letterType", "general-letter");
+        additionalData.put("isInternational", true);
+
 //        additionalData.put(FILE_NAMES, getFileNames(bulkPrintRequest));
-//        additionalData.put(RECIPIENTS, Arrays.asList("Gilligan Blobbers", "Querky Mcgibbins",
-//                                                     UUID.randomUUID(), UUID.randomUUID()));
+        additionalData.put(RECIPIENTS, Arrays.asList("Gilligan Blobbers", "Querky Mcgibbins",
+                                                     UUID.randomUUID(), UUID.randomUUID()));
 //        additionalData.put(RECIPIENTS, Arrays.asList("Respondent FN LN"));
-        additionalData.put(RECIPIENTS, Arrays.asList("OTHER PERSON FN LN"));
+//        additionalData.put(RECIPIENTS, Arrays.asList("OTHER PERSON FN LN"));
         return additionalData;
 
 //        {"recipients":["1692693646370588","Test  User","respondent-aos-pack"],
