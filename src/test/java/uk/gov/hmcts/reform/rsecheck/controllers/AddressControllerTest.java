@@ -1,13 +1,13 @@
 package uk.gov.hmcts.reform.rsecheck.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.util.NestedServletException;
 import uk.gov.hmcts.reform.rpts.controllers.AddressController;
 import uk.gov.hmcts.reform.rpts.exceptions.NotFoundException;
 import uk.gov.hmcts.reform.rpts.models.NsplAddress;
@@ -15,7 +15,6 @@ import uk.gov.hmcts.reform.rpts.services.NsplService;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import javax.validation.ConstraintViolationException;
 
 import static java.nio.file.Files.readAllBytes;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -60,7 +59,7 @@ class AddressControllerTest {
     void shouldReturnInvalidPostCodeError() throws Exception {
         try {
             mockMvc.perform(get(BASE_URL + "abc123")).andReturn();
-        } catch (NestedServletException e) {
+        } catch (Exception e) {
             assertThrows(ConstraintViolationException.class, () -> {
                 throw e.getCause();
             });
@@ -79,7 +78,7 @@ class AddressControllerTest {
 
         try {
             mockMvc.perform(get(BASE_URL + query)).andExpect(status().isNotFound());
-        } catch (NestedServletException e) {
+        } catch (Exception e) {
             assertThrows(NotFoundException.class, () -> {
                 throw e.getCause();
             });

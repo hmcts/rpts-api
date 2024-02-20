@@ -1,6 +1,7 @@
 #!groovy
-
 @Library("Infrastructure")
+
+def channel = '#rpts-builds'
 
 def type = "java"
 def product = "rpts"
@@ -8,5 +9,15 @@ def component = "api"
 def branchesToSync = ['demo', 'perftest', 'ithc']
 
 withPipeline(type, product, component) {
+  disableLegacyDeployment()
+  enableSlackNotifications(channel)
   syncBranchesWithMaster(branchesToSync)
+
+  afterAlways('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/tests/**/*'
+  }
+
+  afterAlways('functionalTest:aat') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/reports/tests/**/*'
+  }
 }
