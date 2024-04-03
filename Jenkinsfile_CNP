@@ -8,6 +8,5 @@ def component = "api"
 def branchesToSync = ['demo', 'perftest', 'ithc']
 
 withPipeline(type, product, component) {
-  enableDbMigration(product)
   syncBranchesWithMaster(branchesToSync)
 }
