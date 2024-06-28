@@ -1,4 +1,4 @@
-FROM postgres:11.22-alpine
+FROM postgres:16.3-alpine
 
 HEALTHCHECK --interval=10s --timeout=10s --retries=10 CMD psql -c 'select 1' -d javadatabase -U javapostgres
 
