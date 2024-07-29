@@ -13,6 +13,9 @@
   * [Running the application](#running-the-application)
   * [Alternative script to run application](#alternative-script-to-run-application)
 * [Other](#other)
+  * [Endpoints](#endpoints)
+  * [NSPL Data - National Statistics Postcode Lookup](#nspl-data---national-statistics-postcode-lookup)
+  * [OS Data - Ordnance Survey](#os-data---ordnance-survey)
 * [License](#license)
 
 ## Notes
