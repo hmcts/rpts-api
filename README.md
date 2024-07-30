@@ -129,7 +129,7 @@ Here are some other functionalities it provides:
  the number of concurrent calls to any given dependency
  * [Request caching](https://github.com/Netflix/Hystrix/wiki/How-it-Works#request-caching), allowing
  different code paths to execute Hystrix Commands without worrying about duplicating work
-q
+
 ### Endpoints
 
 Returns a NsplAddress entity which contains address lines and local authority information.
