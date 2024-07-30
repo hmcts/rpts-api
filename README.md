@@ -2,6 +2,22 @@
 
 [![Build Status](https://travis-ci.org/hmcts/rpts-api.svg?branch=master)](https://travis-ci.org/hmcts/rpts-api)
 
+## Table of Contents
+
+* [Notes](#notes)
+* [Building and deploying the application](#building-and-deploying-the-application)
+  * [Building the application](#building-the-application)
+  * [Database set up](#database-set-up)
+    * [Locally](#locally)
+    * [AAT and upwards](#aat-and-upwards)
+  * [Running the application](#running-the-application)
+  * [Alternative script to run application](#alternative-script-to-run-application)
+* [Other](#other)
+  * [Endpoints](#endpoints)
+  * [NSPL Data - National Statistics Postcode Lookup](#nspl-data---national-statistics-postcode-lookup)
+  * [OS Data - Ordnance Survey](#os-data---ordnance-survey)
+* [License](#license)
+
 ## Notes
 
 Since Spring Boot 2.1 bean overriding is disabled. If you want to enable it you will need to set `spring.main.allow-bean-definition-overriding` to `true`.
@@ -104,7 +120,7 @@ docker image rm <image-id>
 
 There is no need to remove postgres and java or similar core images.
 
-### Other
+## Other
 
 Hystrix offers much more than Circuit Breaker pattern implementation or command monitoring.
 Here are some other functionalities it provides:
@@ -113,6 +129,27 @@ Here are some other functionalities it provides:
  the number of concurrent calls to any given dependency
  * [Request caching](https://github.com/Netflix/Hystrix/wiki/How-it-Works#request-caching), allowing
  different code paths to execute Hystrix Commands without worrying about duplicating work
+
+### Endpoints
+
+Returns a NsplAddress entity which contains address lines and local authority information.
+```
+GET /v1/search/<postcode>
+```
+
+### NSPL Data - National Statistics Postcode Lookup
+
+The application uses the NSPL data to provide address information based on the postcode.
+For more information about the latest NSPL data, search and download from [here](https://geoportal.statistics.gov.uk/search?sort=Date%20Updated%7Cmodified%7Cdesc).
+
+Example: National Statistics Postcode Lookup - 2021 Census (May 2024) for the UK
+
+
+### OS Data - Ordnance Survey
+
+The application uses OS Places API for postcode searching to make sure we're getting the most up to date data.
+See [here](https://www.ordnancesurvey.co.uk/products/os-places-api#overview) for more information.
+
 
 ## License
 
