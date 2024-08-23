@@ -243,7 +243,7 @@ dependencies {
 
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: '6.1.6'
 
-  testImplementation(platform('org.junit:junit-bom:5.10.3'))
+  testImplementation(platform('org.junit:junit-bom:5.11.0'))
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {
     exclude group: 'junit', module: 'junit'
