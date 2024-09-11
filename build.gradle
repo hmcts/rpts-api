@@ -227,13 +227,12 @@ dependencies {
   implementation group: 'com.fasterxml.jackson', name: 'jackson-bom', version: '2.17.2', ext: 'pom'
   implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.17.2'
 
-  // Force upgrade snakeyaml version for CVE-2022-38752
   implementation( group: 'org.yaml', name: 'snakeyaml').version {
-    strictly("2.2")
+    strictly("2.3")
   }
 
   implementation( group: 'com.google.guava', name: 'guava').version {
-    strictly("33.0.0-jre")
+    strictly("33.3.0-jre")
   }
 
   implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4JVersion
@@ -244,7 +243,7 @@ dependencies {
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: '6.1.6'
 
   testImplementation(platform('org.junit:junit-bom:5.11.0'))
-  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.11.0'
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {
     exclude group: 'junit', module: 'junit'
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -256,11 +255,11 @@ dependencies {
   integrationTestImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.20.1'
 
   functionalTestImplementation sourceSets.main.runtimeClasspath
-  functionalTestImplementation group: 'io.rest-assured', name: 'rest-assured'
+  functionalTestImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.5.0'
   functionalTestImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.20.1'
   functionalTestImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.20.1'
 
-  smokeTestImplementation group: 'io.rest-assured', name: 'rest-assured'
+  smokeTestImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.5.0'
 }
 
 mainClassName = 'uk.gov.hmcts.reform.rpts.Application'
