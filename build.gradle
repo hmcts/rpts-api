@@ -243,7 +243,7 @@ dependencies {
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: '6.1.6'
 
   testImplementation(platform('org.junit:junit-bom:5.11.0'))
-  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.11.0'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {
     exclude group: 'junit', module: 'junit'
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -255,11 +255,11 @@ dependencies {
   integrationTestImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.20.1'
 
   functionalTestImplementation sourceSets.main.runtimeClasspath
-  functionalTestImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.5.0'
+  functionalTestImplementation group: 'io.rest-assured', name: 'rest-assured'
   functionalTestImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.20.1'
   functionalTestImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.20.1'
 
-  smokeTestImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.5.0'
+  smokeTestImplementation group: 'io.rest-assured', name: 'rest-assured'
 }
 
 mainClassName = 'uk.gov.hmcts.reform.rpts.Application'
