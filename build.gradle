@@ -140,7 +140,7 @@ task smoke(type: Test) {
 
 checkstyle {
   maxWarnings = 0
-  toolVersion = '10.18.1'
+  toolVersion = '10.18.2'
   getConfigDirectory().set(new File(rootDir, 'config/checkstyle'))
 }
 
@@ -203,7 +203,7 @@ repositories {
 }
 
 ext {
-  log4JVersion = "2.24.0"
+  log4JVersion = "2.24.1"
 }
 
 dependencies {
