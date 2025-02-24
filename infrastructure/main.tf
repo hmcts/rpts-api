@@ -74,7 +74,7 @@ module "application_insights" {
   env                 = var.env
   product             = var.product
   name                = "${var.product}-${var.component}-appinsights"
-  location            = var.location
+  location            = var.alert_location
   resource_group_name = azurerm_resource_group.rg.name
   alert_location      = var.location
 

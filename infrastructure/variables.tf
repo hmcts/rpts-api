@@ -52,3 +52,9 @@ variable "aks_subscription_id" {
 }
 
 variable "jenkins_AAD_objectId" {}
+
+variable "alert_location" {
+  description = "Target Azure location to deploy the alert"
+  type        = string
+  default     = "global"
+}
