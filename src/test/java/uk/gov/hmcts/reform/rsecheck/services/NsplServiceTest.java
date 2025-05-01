@@ -5,8 +5,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.hmcts.reform.rpts.entities.Nspl;
 import uk.gov.hmcts.reform.rpts.entities.NsplHistory;
@@ -34,11 +34,11 @@ import static org.mockito.Mockito.when;
 @ContextConfiguration(classes = NsplService.class)
 class NsplServiceTest {
 
-    @MockBean
+    @MockitoBean
     private NsplRepo nsplRepo;
-    @MockBean
+    @MockitoBean
     private NsplHistoryRepo nsplHistoryRepo;
-    @MockBean
+    @MockitoBean
     private OsService osService;
 
     @Autowired
