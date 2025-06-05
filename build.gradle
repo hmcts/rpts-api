@@ -200,7 +200,9 @@ dependencyCheck {
 repositories {
   mavenLocal()
   mavenCentral()
-  maven { url 'https://jitpack.io' }
+  maven {
+    url 'https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1'
+  }
 }
 
 ext {
@@ -223,7 +225,7 @@ dependencies {
 
   implementation group: 'io.github.resilience4j', name: 'resilience4j-spring-boot2', version: '2.3.0'
 
-  implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: '6.1.8'
+  implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: '6.1.9'
 
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
