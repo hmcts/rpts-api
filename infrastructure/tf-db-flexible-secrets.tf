@@ -1,18 +1,18 @@
 locals {
   flexible_secret_prefix = "${var.component}-POSTGRES-FLEXIBLE"
 
-  flexible_secrets = [
+  flexible_secrets = contains(["aat", "demo", "prod"], var.env) ? [
     {
       name_suffix = "PASS"
-      value       = module.postgresql.password
+      value       = module.postgresql[0].password
     },
     {
       name_suffix = "HOST"
-      value       = module.postgresql.fqdn
+      value       = module.postgresql[0].fqdn
     },
     {
       name_suffix = "USER"
-      value       = module.postgresql.username
+      value       = module.postgresql[0].username
     },
     {
       name_suffix = "PORT"
@@ -22,8 +22,7 @@ locals {
       name_suffix = "DATABASE"
       value       = local.db_name
     }
-  ]
-
+  ] : []
 }
 
 resource "azurerm_key_vault_secret" "flexible_secret" {
