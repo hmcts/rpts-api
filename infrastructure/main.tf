@@ -38,6 +38,8 @@ data "azurerm_key_vault" "rpts_key_vault" {
 }
 
 module "postgresql" {
+  count = contains(["aat", "demo", "prod"], var.env) ? 1 : 0
+
   providers = {
     azurerm.postgres_network = azurerm.postgres_network
   }
