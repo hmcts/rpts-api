@@ -38,7 +38,7 @@ data "azurerm_key_vault" "rpts_key_vault" {
 }
 
 module "postgresql" {
-  count = contains(["aat", "demo", "prod"], var.env) ? 1 : 0
+  count = contains(["aat", "demo"], var.env) ? 1 : 0
 
   providers = {
     azurerm.postgres_network = azurerm.postgres_network
@@ -71,7 +71,7 @@ resource "azurerm_resource_group" "rg" {
 }
 
 module "application_insights" {
-  count = contains(["aat", "demo", "prod"], var.env) ? 1 : 0
+  count = contains(["aat", "demo"], var.env) ? 1 : 0
 
   source = "git@github.com:hmcts/terraform-module-application-insights?ref=4.x"
 

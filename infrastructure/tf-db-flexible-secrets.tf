@@ -1,7 +1,7 @@
 locals {
   flexible_secret_prefix = "${var.component}-POSTGRES-FLEXIBLE"
 
-  flexible_secrets = contains(["aat", "demo", "prod"], var.env) ? [
+  flexible_secrets = contains(["aat", "demo"], var.env) ? [
     {
       name_suffix = "PASS"
       value       = module.postgresql[0].password
