@@ -26,7 +26,7 @@ locals {
 }
 
 resource "azurerm_key_vault_secret" "flexible_secret" {
-  for_each     = { for secret in local.flexible_secrets : secret.name_suffix => secret }
+  for_each = contains(["aat", "demo"], var.env) ? { for secret in local.flexible_secrets : secret.name_suffix => secret } : {}
   key_vault_id = data.azurerm_key_vault.rpts_key_vault[0].id
   name         = "${local.flexible_secret_prefix}-${each.value.name_suffix}"
   value        = each.value.value
