@@ -33,6 +33,7 @@ locals {
 }
 
 data "azurerm_key_vault" "rpts_key_vault" {
+  count = contains(["aat", "demo"], var.env) ? 1 : 0
   name                = local.vault_name
   resource_group_name = local.resource_group_name
 }
@@ -64,6 +65,7 @@ module "postgresql" {
 }
 
 resource "azurerm_resource_group" "rg" {
+  count    = contains(["aat", "demo"], var.env) ? 1 : 0
   name     = "${var.product}-${var.component}-${var.env}"
   location = var.location
 
