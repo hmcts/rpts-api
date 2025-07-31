@@ -154,4 +154,3 @@ See [here](https://www.ordnancesurvey.co.uk/products/os-places-api#overview) for
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-

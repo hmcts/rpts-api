@@ -33,11 +33,14 @@ locals {
 }
 
 data "azurerm_key_vault" "rpts_key_vault" {
+  count = contains(["aat", "demo"], var.env) ? 1 : 0
   name                = local.vault_name
   resource_group_name = local.resource_group_name
 }
 
 module "postgresql" {
+  count = contains(["aat", "demo"], var.env) ? 1 : 0
+
   providers = {
     azurerm.postgres_network = azurerm.postgres_network
   }
@@ -62,26 +65,9 @@ module "postgresql" {
 }
 
 resource "azurerm_resource_group" "rg" {
+  count    = contains(["aat", "demo"], var.env) ? 1 : 0
   name     = "${var.product}-${var.component}-${var.env}"
   location = var.location
 
   tags = var.common_tags
-}
-
-module "application_insights" {
-  source = "git@github.com:hmcts/terraform-module-application-insights?ref=4.x"
-
-  env                 = var.env
-  product             = var.product
-  name                = "${var.product}-${var.component}-appinsights"
-  location            = var.location
-  resource_group_name = azurerm_resource_group.rg.name
-  alert_location      = var.alert_location
-
-  common_tags = var.common_tags
-}
-
-moved {
-  from = azurerm_application_insights.appinsights
-  to   = module.application_insights.azurerm_application_insights.this
 }
