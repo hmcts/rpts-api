@@ -5,8 +5,8 @@ provider "azurerm" {
 provider "azurerm" {
   features {}
   resource_provider_registrations = "none"
-  alias                      = "postgres_network"
-  subscription_id            = var.aks_subscription_id
+  alias                           = "postgres_network"
+  subscription_id                 = var.aks_subscription_id
 }
 
 terraform {
@@ -33,7 +33,7 @@ locals {
 }
 
 data "azurerm_key_vault" "rpts_key_vault" {
-  count = contains(["aat", "demo"], var.env) ? 1 : 0
+  count               = contains(["aat", "demo"], var.env) ? 1 : 0
   name                = local.vault_name
   resource_group_name = local.resource_group_name
 }
