@@ -13,6 +13,7 @@ bin/main/application.yaml
 .springBeans
 
 ./setup/tmp
+.envdonotpush
 
 ### IntelliJ IDEA ###
 .idea
