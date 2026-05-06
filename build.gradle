@@ -235,7 +235,7 @@ dependencies {
   integrationTestImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.21.4'
 
   functionalTestImplementation sourceSets.integrationTest.runtimeClasspath
-  functionalTestImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.5.7'
+  functionalTestImplementation group: 'io.rest-assured', name: 'rest-assured', version: '6.0.0'
 
   smokeTestImplementation sourceSets.functionalTest.runtimeClasspath
 }
