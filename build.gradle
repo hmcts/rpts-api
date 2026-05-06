@@ -225,7 +225,7 @@ dependencies {
 
   implementation group: 'io.github.resilience4j', name: 'resilience4j-spring-boot2', version: '2.3.0'
 
-  implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: '6.1.9'
+  implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: '8.0.0'
 
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
