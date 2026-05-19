@@ -97,10 +97,10 @@ test {
 
 ext.getVaultSecret = { String secretName ->
   new ByteArrayOutputStream().withStream { os ->
-    exec {
+    providers.exec {
       commandLine 'az', 'keyvault', 'secret', 'show', '--vault-name', 'rpts-aat', '-o', 'tsv', '--query', 'value', '--name', secretName
       standardOutput = os
-    }
+    }.result.get().assertNormalExitValue()
     return os.toString().replace('\n', '')
   }
 }
@@ -115,9 +115,9 @@ task functional(type: Test) {
    */
   doFirst() {
     if (System.getenv("OS_KEY") == null) {
-      project.exec {
+      providers.exec {
         commandLine 'az', 'login', '--identity'
-      }
+      }.result.get().assertNormalExitValue()
       println("Loading secrets and admin credentials from vault")
       systemProperty 'OS_KEY', getVaultSecret('os-key');
     }
