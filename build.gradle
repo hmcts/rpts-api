@@ -96,13 +96,26 @@ test {
 }
 
 ext.getVaultSecret = { String secretName ->
-  new ByteArrayOutputStream().withStream { os ->
-    project.exec {
-      commandLine 'az', 'keyvault', 'secret', 'show', '--vault-name', 'rpts-aat', '-o', 'tsv', '--query', 'value', '--name', secretName
-      standardOutput = os
-    }
-    return os.toString().replace('\n', '')
+  def output = runCommand([
+    'az', 'keyvault', 'secret', 'show',
+    '--vault-name', 'rpts-aat',
+    '-o', 'tsv',
+    '--query', 'value',
+    '--name', secretName
+  ])
+  return output.replace('\n', '')
+}
+
+ext.runCommand = { List<String> command ->
+  Process process = new ProcessBuilder(command)
+    .redirectErrorStream(true)
+    .start()
+  String output = process.inputStream.getText('UTF-8')
+  int exitCode = process.waitFor()
+  if (exitCode != 0) {
+    throw new GradleException("Command failed (${command.join(' ')}): ${output}")
   }
+  return output
 }
 
 task functional(type: Test) {
@@ -115,9 +128,7 @@ task functional(type: Test) {
    */
   doFirst() {
     if (System.getenv("OS_KEY") == null) {
-      project.exec {
-        commandLine 'az', 'login', '--identity'
-      }
+      runCommand(['az', 'login', '--identity'])
       println("Loading secrets and admin credentials from vault")
       systemProperty 'OS_KEY', getVaultSecret('os-key');
     }
