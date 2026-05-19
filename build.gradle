@@ -115,7 +115,7 @@ task functional(type: Test) {
    */
   doFirst() {
     if (System.getenv("OS_KEY") == null) {
-      exec {
+      project.exec {
         commandLine 'az', 'login', '--identity'
       }
       println("Loading secrets and admin credentials from vault")
