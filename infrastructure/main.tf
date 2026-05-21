@@ -5,8 +5,8 @@ provider "azurerm" {
 provider "azurerm" {
   features {}
   resource_provider_registrations = "none"
-  alias                      = "postgres_network"
-  subscription_id            = var.aks_subscription_id
+  alias                           = "postgres_network"
+  subscription_id                 = var.aks_subscription_id
 }
 
 terraform {
@@ -15,7 +15,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "4.44.0"
+      version = "4.62.0"
     }
     azuread = {
       source  = "hashicorp/azuread"
@@ -33,7 +33,7 @@ locals {
 }
 
 data "azurerm_key_vault" "rpts_key_vault" {
-  count = contains(["aat", "demo"], var.env) ? 1 : 0
+  count               = contains(["aat", "demo"], var.env) ? 1 : 0
   name                = local.vault_name
   resource_group_name = local.resource_group_name
 }
