@@ -65,7 +65,6 @@ configurations {
   smokeTestImplementation.extendsFrom testImplementation
   smokeTestRuntimeOnly.extendsFrom runtimeOnly
 
-  mockitoAgent
 }
 
 tasks.withType(JavaCompile) {
@@ -81,10 +80,6 @@ tasks.withType(Test) {
 
   useJUnitPlatform()
 
-  // Mockito inline mocking should be loaded as a startup agent on modern JDKs.
-  doFirst {
-    jvmArgs "-javaagent:${configurations.mockitoAgent.singleFile.absolutePath}"
-  }
 
   testLogging {
     exceptionFormat = 'full'
@@ -251,9 +246,7 @@ dependencies {
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator-test'
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa-test'
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-aspectj-test'
-  mockitoAgent(group: 'org.mockito', name: 'mockito-core') {
-    transitive = false
-  }
+  testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.5.0'
 
   integrationTestImplementation sourceSets.main.runtimeClasspath
   integrationTestImplementation sourceSets.test.runtimeClasspath
