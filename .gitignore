@@ -28,3 +28,5 @@ applicationinsights-agent-*.jar
 *.log
 
 setup/tmp/
+
+.github/skills
