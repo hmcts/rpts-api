@@ -1,12 +1,12 @@
 package uk.gov.hmcts.reform.rpts;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 import uk.gov.hmcts.reform.rpts.models.NsplAddress;
 import uk.gov.hmcts.reform.rpts.util.FunctionalTestBase;
 
@@ -24,10 +24,11 @@ class AddressEndpointTest extends FunctionalTestBase {
     private static final String NINE_CHAR_LA_CODE = "E06000027";
 
     @Test
-    void shouldRetrieveAddressAndLocalAuthorityCodes() throws JsonProcessingException, JSONException {
+    void shouldRetrieveAddressAndLocalAuthorityCodes() throws JacksonException, JSONException {
 
         final var response = doGetRequest(ADDRESS_SEARCH_ENDPOINT + "/IP1 1EJ");
-        final NsplAddress nsplAddressListExpected = response.as(NsplAddress.class);
+        final NsplAddress nsplAddressListExpected =
+            new ObjectMapper().readValue(response.asString(), NsplAddress.class);
 
         assertThat(response.statusCode()).isEqualTo(OK.value());
         assertThat(nsplAddressListExpected.getFourCharLaCode()).isEqualTo(FOUR_CHAR_LA_CODE);
@@ -47,4 +48,3 @@ class AddressEndpointTest extends FunctionalTestBase {
         assertThat(response.statusCode()).isEqualTo(NOT_FOUND.value());
     }
 }
-
