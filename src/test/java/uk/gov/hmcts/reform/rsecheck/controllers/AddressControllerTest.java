@@ -1,13 +1,13 @@
 package uk.gov.hmcts.reform.rsecheck.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import tools.jackson.databind.ObjectMapper;
 import uk.gov.hmcts.reform.rpts.controllers.AddressController;
 import uk.gov.hmcts.reform.rpts.exceptions.NotFoundException;
 import uk.gov.hmcts.reform.rpts.models.NsplAddress;
@@ -77,7 +77,9 @@ class AddressControllerTest {
         when(nsplService.getAddressInfo(query)).thenThrow(new NotFoundException(query));
 
         try {
-            mockMvc.perform(get(BASE_URL + query)).andExpect(status().isNotFound());
+            mockMvc.perform(get(BASE_URL + query))
+                .andExpect(status().isNotFound())
+                .andExpect(content().json("{\"message\":\"Not found: PL51AA\"}", true));
         } catch (Exception e) {
             assertThrows(NotFoundException.class, () -> {
                 throw e.getCause();

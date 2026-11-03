@@ -4,8 +4,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 import uk.gov.hmcts.reform.rpts.entities.NsplHistory;
 import uk.gov.hmcts.reform.rpts.exceptions.NotFoundException;
 
@@ -37,6 +37,7 @@ class NsplHistoryRepositoryTest {
         assertThat(result).isNotNull();
         assertThat(result.getStatus()).isEqualTo("live");
         assertThat(result.getGeogcd()).isEqualTo("E06000027");
+        assertThat(result.getEntityCd()).isEqualTo("E06");
 
     }
 

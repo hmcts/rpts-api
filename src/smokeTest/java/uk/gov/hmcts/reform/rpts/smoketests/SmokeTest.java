@@ -35,6 +35,9 @@ class SmokeTest {
             .thenReturn();
 
         assertThat(response.statusCode()).isEqualTo(OK.value());
-        assertThat(response.asString().substring(1)).startsWith("\"status\":\"UP\"");
+        assertThat(response.jsonPath().getString("status")).isEqualTo("UP");
+        assertThat(response.jsonPath().getString("components.db.status")).isEqualTo("UP");
+        assertThat(response.jsonPath().getString("components.readinessState.status")).isEqualTo("UP");
+        assertThat(response.jsonPath().getString("components.livenessState.status")).isEqualTo("UP");
     }
 }

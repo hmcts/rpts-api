@@ -1,6 +1,5 @@
 package uk.gov.hmcts.reform.rsecheck.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.FeignException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 import uk.gov.hmcts.reform.rpts.os.OsClient;
 import uk.gov.hmcts.reform.rpts.os.OsResult;
 import uk.gov.hmcts.reform.rpts.services.OsService;
@@ -32,6 +33,16 @@ class OsServiceTest {
 
     @Autowired
     private OsService osService;
+
+    @Test
+    void shouldPreserveOsResponseJsonWhenDeserializingAndSerializing() throws IOException {
+        final Path path = Paths.get("src/test/resources/os_address_example.json");
+        final ObjectMapper objectMapper = new ObjectMapper();
+        final JsonNode originalJson = objectMapper.readTree(path.toFile());
+        final OsResult osResult = objectMapper.readValue(path.toFile(), OsResult.class);
+
+        assertThat(objectMapper.readTree(objectMapper.writeValueAsString(osResult))).isEqualTo(originalJson);
+    }
 
     @Test
     void shouldReturnOptionalForValidPostcode() throws IOException {

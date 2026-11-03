@@ -1,11 +1,11 @@
 package uk.gov.hmcts.reform.rpts.os;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -17,14 +17,14 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
     private OsClient osClient;
 
     @Test
-    void shouldReturnPostcodeData() throws JsonProcessingException {
-        final  OsResult osResult = osClient.getPostcodeData("TQ1 1BS");
+    void shouldReturnPostcodeData() throws JacksonException {
+        // SW1A 1AA is the postcode for Buckingham Palace, London
+        final  OsResult osResult = osClient.getPostcodeData("SW1A 1AA");
         assertThat(osResult.getResults()).isNotEmpty();
         ObjectMapper mapper = new ObjectMapper();
         JsonNode newNode = mapper.readTree(String.valueOf(osResult.getResults()));
-        assertThat(newNode.findPath("DPA").path("POSTCODE").textValue()).isEqualTo("TQ1 1BS");
-        assertThat(newNode.findPath("DPA").path("POST_TOWN").textValue()).isEqualTo("TORQUAY");
-
+        assertThat(newNode.findPath("DPA").path("POSTCODE").textValue()).isEqualTo("SW1A 1AA");
+        assertThat(newNode.findPath("DPA").path("POST_TOWN").textValue()).isEqualTo("LONDON");
     }
 
     @Test
@@ -53,4 +53,3 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
     }
 
 }
-
