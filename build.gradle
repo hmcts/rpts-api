@@ -203,7 +203,7 @@ repositories {
 
 ext {
   log4JVersion = "2.25.3"
-  springCloudVersion = "2025.1.4"
+  springCloudVersion = "2025.1.5"
 }
 
 dependencyManagement {
